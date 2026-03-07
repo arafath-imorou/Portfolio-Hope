@@ -198,4 +198,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- 7. Hidden Admin Access ---
+    // Clicking the copyright in footer 5 times opens the login page
+    const footerBottom = document.querySelector('.footer-bottom p');
+    let clickCount = 0;
+
+    if (footerBottom) {
+        footerBottom.style.cursor = 'default';
+        footerBottom.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                window.location.href = 'login.html';
+            }
+            // Reset count if no click for 3 seconds
+            setTimeout(() => { clickCount = 0; }, 3000);
+        });
+    }
 });
