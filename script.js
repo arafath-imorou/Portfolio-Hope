@@ -200,19 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 7. Hidden Admin Access ---
-    // Clicking "2026" in footer 5 times opens the login page
+    // Clicking "2026" in footer once opens the login page
     const adminTrigger = document.getElementById('admin-trigger');
-    let clickCount = 0;
 
     if (adminTrigger) {
         adminTrigger.style.cursor = 'default';
         adminTrigger.addEventListener('click', () => {
-            clickCount++;
-            if (clickCount === 5) {
-                window.location.href = 'login.html';
-            }
-            // Reset count if no click for 3 seconds
-            setTimeout(() => { clickCount = 0; }, 3000);
+            window.location.href = 'login.html';
         });
     }
 });
