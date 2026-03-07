@@ -1,6 +1,6 @@
 const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
 const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 const messagesContainer = document.getElementById('messages-container');
 const logoutBtn = document.getElementById('logout-btn');
@@ -28,7 +28,7 @@ tabBtns.forEach(btn => {
 
 // --- Auth Check ---
 async function checkAuth() {
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session } } = await supabaseClient.auth.getSession();
     if (!session) {
         window.location.href = 'login.html';
         return;
@@ -40,7 +40,7 @@ async function checkAuth() {
 // --- Fetch Messages (Same as before) ---
 async function fetchMessages() {
     const messagesContainer = document.getElementById('messages-container');
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from('contacts')
         .select('*')
         .order('created_at', { ascending: false });
@@ -84,7 +84,7 @@ function renderMessages(messages, container) {
 
 async function loadEditorData() {
     // 1. General Content
-    const { data: generalData } = await supabase.from('site_content').select('*');
+    const { data: generalData } = await supabaseClient.from('site_content').select('*');
     const generalInputs = document.getElementById('general-inputs');
     if (generalData) {
         generalInputs.innerHTML = generalData.map(item => `
@@ -96,7 +96,7 @@ async function loadEditorData() {
     }
 
     // 2. Experiences
-    const { data: expData } = await supabase.from('experiences').select('*').order('sort_order');
+    const { data: expData } = await supabaseClient.from('experiences').select('*').order('sort_order');
     const expList = document.getElementById('experiences-list');
     if (expData) {
         expList.innerHTML = expData.map(exp => `
@@ -121,7 +121,7 @@ async function saveGeneralContent(e) {
         content: ta.value
     }));
 
-    const { error } = await supabase.from('site_content').upsert(updates);
+    const { error } = await supabaseClient.from('site_content').upsert(updates);
     if (error) alert('Erreur: ' + error.message);
     else alert('Contenu général mis à jour !');
 }
@@ -134,14 +134,14 @@ window.saveItem = async function (btn) {
     const update = {};
     inputs.forEach(input => update[input.dataset.field] = input.value);
 
-    const { error } = await supabase.from(table).update(update).eq('id', id);
+    const { error } = await supabaseClient.from(table).update(update).eq('id', id);
     if (error) alert('Erreur: ' + error.message);
     else alert('Mis à jour !');
 };
 
 window.deleteItem = async function (id, table) {
     if (!confirm('Supprimer cet élément ?')) return;
-    const { error } = await supabase.from(table).delete().eq('id', id);
+    const { error } = await supabaseClient.from(table).delete().eq('id', id);
     if (error) alert(error.message);
     else loadEditorData();
 };
@@ -152,7 +152,7 @@ document.getElementById('general-editor').addEventListener('submit', saveGeneral
 // --- Logout ---
 logoutBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    await supabase.auth.signOut();
+    await supabaseClient.auth.signOut();
     window.location.href = 'login.html';
 });
 
