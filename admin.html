@@ -93,16 +93,128 @@
     <div class="admin-layout">
         <header class="admin-header">
             <div>
-                <h1 class="logo-text">Dashboard Messages</h1>
-                <p>Gérez vos contacts et demandes</p>
+                <h1 class="logo-text">Dashboard Admin</h1>
+                <p>Gérez vos messages et votre contenu</p>
             </div>
-            <a href="#" id="logout-btn" class="logout-btn">Déconnexion</a>
+            <div>
+                <nav style="display: inline-flex; gap: 1rem; margin-right: 2rem;">
+                    <a href="#" class="tab-btn active" data-tab="messages">Messages</a>
+                    <a href="#" class="tab-btn" data-tab="editor">Éditeur</a>
+                </nav>
+                <a href="#" id="logout-btn" class="logout-btn">Déconnexion</a>
+            </div>
         </header>
 
-        <div id="messages-container" class="message-grid">
-            <div class="loading-state">Initialisation des messages...</div>
+        <!-- Messages Section -->
+        <div id="messages-section" class="tab-content">
+            <div id="messages-container" class="message-grid">
+                <div class="loading-state">Initialisation des messages...</div>
+            </div>
+        </div>
+
+        <!-- Editor Section -->
+        <div id="editor-section" class="tab-content" style="display: none;">
+            <div class="editor-grid">
+                <div class="admin-card">
+                    <h3>Contenu Général</h3>
+                    <form id="general-editor" class="editor-form">
+                        <div id="general-inputs">Loading...</div>
+                        <button type="submit" class="save-btn">Enregistrer</button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Expériences</h3>
+                    <div id="experiences-list"></div>
+                    <button id="add-exp-btn" class="add-btn">+ Ajouter</button>
+                </div>
+
+                <div class="admin-card">
+                    <h3>Compétences</h3>
+                    <div id="skills-list"></div>
+                    <button id="add-skill-btn" class="add-btn">+ Ajouter</button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <style>
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .editor-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .admin-input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .save-btn,
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .item-editor {
+            border: 1px solid #eee;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            color: #ff4757;
+            cursor: pointer;
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin.js"></script>

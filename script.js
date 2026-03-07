@@ -4,6 +4,103 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 0. CMS Content Loading ---
+    async function loadCMSContent() {
+        try {
+            // Load Site Content (Texts)
+            const { data: contentData } = await supabase.from('site_content').select('*');
+            contentData?.forEach(item => {
+                const el = document.getElementById(item.id);
+                if (el) el.innerHTML = item.content;
+            });
+
+            // Load Expertise
+            const { data: expertiseData } = await supabase.from('expertise').select('*').order('sort_order');
+            const expertiseGrid = document.getElementById('expertise-grid');
+            if (expertiseGrid && expertiseData?.length > 0) {
+                expertiseGrid.innerHTML = expertiseData.map(exp => `
+                    <div class="expertise-card fade-in">
+                        <div class="expertise-icon"><i class="ph ph-${exp.icon}"></i></div>
+                        <h3 class="expertise-title">${exp.title}</h3>
+                        <p class="expertise-text">${exp.description}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Load Experiences
+            const { data: expData } = await supabase.from('experiences').select('*').order('sort_order');
+            const timeline = document.getElementById('experience-timeline');
+            if (timeline && expData?.length > 0) {
+                timeline.innerHTML = expData.map(exp => `
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">${exp.period}</span>
+                            <h3 class="timeline-title">${exp.role}</h3>
+                            <h4 class="timeline-org">${exp.company}</h4>
+                            <p class="timeline-desc">${exp.description}</p>
+                            <ul class="timeline-list">
+                                ${Array.isArray(exp.bullets) ? exp.bullets.map(b => `<li>${b}</li>`).join('') : ''}
+                            </ul>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Load Formations
+            const { data: formData } = await supabase.from('formations').select('*').order('sort_order');
+            if (formData) {
+                const academicList = document.getElementById('academic-formations');
+                const professionalList = document.getElementById('professional-formations');
+
+                if (academicList) academicList.innerHTML = formData.filter(f => f.type === 'academic').map(f => `
+                    <div class="formation-item">
+                        <div class="formation-year-box">${f.year}</div>
+                        <div class="formation-info">
+                            <h4 class="formation-title">${f.title}</h4>
+                            <p class="formation-detail">${f.detail}</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                if (professionalList) professionalList.innerHTML = formData.filter(f => f.type === 'professional').map(f => `
+                    <div class="formation-item">
+                        <div class="formation-year-box">${f.year}</div>
+                        <div class="formation-info">
+                            <h4 class="formation-title">${f.title}</h4>
+                            <p class="formation-detail">${f.detail}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Load Skills
+            const { data: skillData } = await supabase.from('skills').select('*').order('sort_order');
+            if (skillData) {
+                const softwareList = document.getElementById('software-skills');
+                const languageList = document.getElementById('language-skills');
+
+                if (softwareList) softwareList.innerHTML = skillData.filter(s => s.category === 'software').map(s => `
+                    <span class="skill-tag">${s.name}</span>
+                `).join('');
+
+                if (languageList) languageList.innerHTML = skillData.filter(s => s.category === 'language').map(s => `
+                    <span class="skill-tag">${s.name}</span>
+                `).join('');
+            }
+
+            // Re-trigger scroll animations for new elements
+            revealObserver.disconnect(); // Use the existing revealObserver
+            document.querySelectorAll('.fade-in').forEach((el) => { // Only target .fade-in as per original script
+                revealObserver.observe(el);
+            });
+
+        } catch (err) {
+            console.error('CMS Error:', err);
+        }
+    }
+
+    loadCMSContent();
 
     // --- 1. Navbar Scroll Effect ---
     const navbar = document.getElementById('navbar');

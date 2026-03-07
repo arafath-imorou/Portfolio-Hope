@@ -5,6 +5,27 @@ const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 const messagesContainer = document.getElementById('messages-container');
 const logoutBtn = document.getElementById('logout-btn');
 
+// --- Tab Switching ---
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = btn.dataset.tab;
+
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        tabContents.forEach(content => {
+            content.style.display = content.id === `${target}-section` ? 'block' : 'none';
+        });
+
+        if (target === 'editor') loadEditorData();
+        if (target === 'messages') fetchMessages();
+    });
+});
+
 // --- Auth Check ---
 async function checkAuth() {
     const { data: { session } } = await supabase.auth.getSession();
@@ -12,11 +33,13 @@ async function checkAuth() {
         window.location.href = 'login.html';
         return;
     }
+    // Default load messages
     fetchMessages();
 }
 
-// --- Fetch Messages ---
+// --- Fetch Messages (Same as before) ---
 async function fetchMessages() {
+    const messagesContainer = document.getElementById('messages-container');
     const { data, error } = await supabase
         .from('contacts')
         .select('*')
@@ -32,12 +55,11 @@ async function fetchMessages() {
         return;
     }
 
-    renderMessages(data);
+    renderMessages(data, messagesContainer);
 }
 
-// --- Render Messages ---
-function renderMessages(messages) {
-    messagesContainer.innerHTML = messages.map(msg => {
+function renderMessages(messages, container) {
+    container.innerHTML = messages.map(msg => {
         const date = new Date(msg.created_at).toLocaleDateString('fr-FR', {
             day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
         });
@@ -57,6 +79,75 @@ function renderMessages(messages) {
         `;
     }).join('');
 }
+
+// --- EDITOR LOGIC ---
+
+async function loadEditorData() {
+    // 1. General Content
+    const { data: generalData } = await supabase.from('site_content').select('*');
+    const generalInputs = document.getElementById('general-inputs');
+    if (generalData) {
+        generalInputs.innerHTML = generalData.map(item => `
+            <div class="input-group">
+                <label>${item.id}</label>
+                <textarea class="admin-input" data-id="${item.id}" rows="3">${item.content}</textarea>
+            </div>
+        `).join('');
+    }
+
+    // 2. Experiences
+    const { data: expData } = await supabase.from('experiences').select('*').order('sort_order');
+    const expList = document.getElementById('experiences-list');
+    if (expData) {
+        expList.innerHTML = expData.map(exp => `
+            <div class="item-editor" data-id="${exp.id}" data-table="experiences">
+                <span class="delete-btn" onclick="deleteItem('${exp.id}', 'experiences')"><i class="ph ph-trash"></i></span>
+                <input type="text" class="admin-input" placeholder="Rôle" value="${exp.role}" data-field="role">
+                <input type="text" class="admin-input" placeholder="Entreprise" value="${exp.company}" data-field="company">
+                <input type="text" class="admin-input" placeholder="Période" value="${exp.period}" data-field="period">
+                <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
+            </div>
+        `).join('');
+    }
+}
+
+// --- Basic CRUD Helpers ---
+
+async function saveGeneralContent(e) {
+    e.preventDefault();
+    const textareas = document.querySelectorAll('#general-inputs textarea');
+    const updates = Array.from(textareas).map(ta => ({
+        id: ta.dataset.id,
+        content: ta.value
+    }));
+
+    const { error } = await supabase.from('site_content').upsert(updates);
+    if (error) alert('Erreur: ' + error.message);
+    else alert('Contenu général mis à jour !');
+}
+
+window.saveItem = async function (btn) {
+    const card = btn.closest('.item-editor');
+    const id = card.dataset.id;
+    const table = card.dataset.table;
+    const inputs = card.querySelectorAll('input[data-field]');
+    const update = {};
+    inputs.forEach(input => update[input.dataset.field] = input.value);
+
+    const { error } = await supabase.from(table).update(update).eq('id', id);
+    if (error) alert('Erreur: ' + error.message);
+    else alert('Mis à jour !');
+};
+
+window.deleteItem = async function (id, table) {
+    if (!confirm('Supprimer cet élément ?')) return;
+    const { error } = await supabase.from(table).delete().eq('id', id);
+    if (error) alert(error.message);
+    else loadEditorData();
+};
+
+// Event Listeners
+document.getElementById('general-editor').addEventListener('submit', saveGeneralContent);
 
 // --- Logout ---
 logoutBtn.addEventListener('click', async (e) => {
