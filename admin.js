@@ -95,7 +95,22 @@ async function loadEditorData() {
         `).join('');
     }
 
-    // 2. Experiences
+    // 2. Expertise
+    const { data: expertiseData } = await supabaseClient.from('expertise').select('*').order('sort_order');
+    const expertiseList = document.getElementById('expertise-list');
+    if (expertiseData) {
+        expertiseList.innerHTML = expertiseData.map(exp => `
+            <div class="item-editor" data-id="${exp.id}" data-table="expertise">
+                <span class="delete-btn" onclick="deleteItem('${exp.id}', 'expertise')"><i class="ph ph-trash"></i></span>
+                <input type="text" class="admin-input" placeholder="Titre" value="${exp.title}" data-field="title">
+                <input type="text" class="admin-input" placeholder="Icon (Phosphor)" value="${exp.icon}" data-field="icon">
+                <textarea class="admin-input" placeholder="Description" data-field="description">${exp.description}</textarea>
+                <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
+            </div>
+        `).join('');
+    }
+
+    // 3. Experiences
     const { data: expData } = await supabaseClient.from('experiences').select('*').order('sort_order');
     const expList = document.getElementById('experiences-list');
     if (expData) {
@@ -105,6 +120,43 @@ async function loadEditorData() {
                 <input type="text" class="admin-input" placeholder="Rôle" value="${exp.role}" data-field="role">
                 <input type="text" class="admin-input" placeholder="Entreprise" value="${exp.company}" data-field="company">
                 <input type="text" class="admin-input" placeholder="Période" value="${exp.period}" data-field="period">
+                <textarea class="admin-input" placeholder="Description" data-field="description">${exp.description}</textarea>
+                <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
+            </div>
+        `).join('');
+    }
+
+    // 4. Formations
+    const { data: formData } = await supabaseClient.from('formations').select('*').order('sort_order');
+    const formationsList = document.getElementById('formations-list');
+    if (formationsList && formData) {
+        formationsList.innerHTML = formData.map(f => `
+            <div class="item-editor" data-id="${f.id}" data-table="formations">
+                <span class="delete-btn" onclick="deleteItem('${f.id}', 'formations')"><i class="ph ph-trash"></i></span>
+                <select class="admin-input" data-field="type">
+                    <option value="academic" ${f.type === 'academic' ? 'selected' : ''}>Académique</option>
+                    <option value="professional" ${f.type === 'professional' ? 'selected' : ''}>Professionnel</option>
+                </select>
+                <input type="text" class="admin-input" placeholder="Titre" value="${f.title}" data-field="title">
+                <input type="text" class="admin-input" placeholder="Détail" value="${f.detail}" data-field="detail">
+                <input type="text" class="admin-input" placeholder="Année" value="${f.year}" data-field="year">
+                <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
+            </div>
+        `).join('');
+    }
+
+    // 5. Skills
+    const { data: skillData } = await supabaseClient.from('skills').select('*').order('sort_order');
+    const skillsList = document.getElementById('skills-list');
+    if (skillsList && skillData) {
+        skillsList.innerHTML = skillData.map(s => `
+            <div class="item-editor" data-id="${s.id}" data-table="skills">
+                <span class="delete-btn" onclick="deleteItem('${s.id}', 'skills')"><i class="ph ph-trash"></i></span>
+                <select class="admin-input" data-field="category">
+                    <option value="software" ${s.category === 'software' ? 'selected' : ''}>Outil</option>
+                    <option value="language" ${s.category === 'language' ? 'selected' : ''}>Langue</option>
+                </select>
+                <input type="text" class="admin-input" placeholder="Nom" value="${s.name}" data-field="name">
                 <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
             </div>
         `).join('');
@@ -126,11 +178,23 @@ async function saveGeneralContent(e) {
     else alert('Contenu général mis à jour !');
 }
 
+window.addItem = async function (table) {
+    let newItem = { sort_order: 99 };
+    if (table === 'expertise') newItem = { ...newItem, title: 'Nouveau', icon: 'star', description: '...' };
+    if (table === 'experiences') newItem = { ...newItem, role: 'Nouveau Rôle', company: '...', period: '...', description: '...' };
+    if (table === 'formations') newItem = { ...newItem, type: 'academic', title: 'Nouvelle formation', detail: '...', year: '...' };
+    if (table === 'skills') newItem = { ...newItem, category: 'software', name: 'Nouveau' };
+
+    const { error } = await supabaseClient.from(table).insert([newItem]);
+    if (error) alert(error.message);
+    else loadEditorData();
+}
+
 window.saveItem = async function (btn) {
     const card = btn.closest('.item-editor');
     const id = card.dataset.id;
     const table = card.dataset.table;
-    const inputs = card.querySelectorAll('input[data-field]');
+    const inputs = card.querySelectorAll('.admin-input[data-field]');
     const update = {};
     inputs.forEach(input => update[input.dataset.field] = input.value);
 
