@@ -4,18 +4,23 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 0. CMS Content Loading ---
+    // --- 0. Supabase Initialization ---
+    const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
+    const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // --- 0.1 CMS Content Loading ---
     async function loadCMSContent() {
         try {
             // Load Site Content (Texts)
-            const { data: contentData } = await supabase.from('site_content').select('*');
+            const { data: contentData } = await supabaseClient.from('site_content').select('*');
             contentData?.forEach(item => {
                 const el = document.getElementById(item.id);
                 if (el) el.innerHTML = item.content;
             });
 
             // Load Expertise
-            const { data: expertiseData } = await supabase.from('expertise').select('*').order('sort_order');
+            const { data: expertiseData } = await supabaseClient.from('expertise').select('*').order('sort_order');
             const expertiseGrid = document.getElementById('expertise-grid');
             if (expertiseGrid && expertiseData?.length > 0) {
                 expertiseGrid.innerHTML = expertiseData.map(exp => `
@@ -28,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Load Experiences
-            const { data: expData } = await supabase.from('experiences').select('*').order('sort_order');
+            const { data: expData } = await supabaseClient.from('experiences').select('*').order('sort_order');
             const timeline = document.getElementById('experience-timeline');
             if (timeline && expData?.length > 0) {
                 timeline.innerHTML = expData.map(exp => `
@@ -48,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Load Formations
-            const { data: formData } = await supabase.from('formations').select('*').order('sort_order');
+            const { data: formData } = await supabaseClient.from('formations').select('*').order('sort_order');
             if (formData) {
                 const academicList = document.getElementById('academic-formations');
                 const professionalList = document.getElementById('professional-formations');
@@ -75,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Load Skills
-            const { data: skillData } = await supabase.from('skills').select('*').order('sort_order');
+            const { data: skillData } = await supabaseClient.from('skills').select('*').order('sort_order');
             if (skillData) {
                 const softwareList = document.getElementById('software-skills');
                 const languageList = document.getElementById('language-skills');
@@ -248,11 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 500);
 
-    // Initial trigger for elements already in viewport on load
-    // --- 6. Supabase Integration ---
-    const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-    const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
 
     const contactForm = document.querySelector('.contact-form');
 
@@ -274,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = 'ENVOI EN COURS...';
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('contacts')
                     .insert([
                         { name, email, subject, message }
