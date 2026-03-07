@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portfolio de Dr. Hope AKOHOUVI AMOU, Docteur en Pharmacie, Expert en chaîne d'approvisionnement internationale et Santé Publique.">
+    <title>Dr. Hope AKOHOUVI AMOU | Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/outfit/v11/QGYsz_OByt2GAdQgeUELDSZo_S-6ssKPrQ.woff2"
+        type="font/woff2" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+
+    <!-- Tailwind CSS (via CDN) just for some utility classes if needed, but styling mostly in CSS -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <!-- Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Dr. Hope A.</span>
+            </a>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="ph ph-list"></i>
+            </div>
+            <nav class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link">À propos</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#experience" class="nav-link">Expérience</a>
+                <a href="#formations" class="nav-link">Formations</a>
+                <a href="#certifications" class="nav-link">Certificats</a>
+                <a href="#skills" class="nav-link">Outils & Langues</a>
+                <a href="#contact" class="nav-link btn-contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-container">
+                <div class="hero-content" class="fade-in">
+                    <div class="badge">Pharmacien Santé Publique</div>
+                    <h1 class="hero-title">
+                        Dr. Hope <br>
+                        <span class="text-gradient">AKOHOUVI AMOU</span>
+                    </h1>
+                    <h2 class="hero-subtitle">
+                        Expert en Chaîne d’Approvisionnement Internationale des Produits de Santé
+                    </h2>
+                    <p class="hero-description">
+                        Plus de 10 années d’expérience dans la transformation des systèmes pharmaceutiques au Bénin,
+                        avec la gestion stratégique de projets internationaux évalués à plus de 20 millions USD/an
+                        (USAID, PEPFAR, PMI, Fonds Mondial, UNICEF, UNFPA).
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#expertise" class="btn btn-primary">
+                            <span>Voir mon Expertise</span>
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span>Me Contacter</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in fade-in-delay-1">
+                    <div class="hero-image-wrapper">
+                        <img src="profile_photo.png" alt="Dr. Hope AKOHOUVI AMOU" class="hero-image">
+                    </div>
+                    <div class="glass-card visual-card">
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-value count-up" data-target="10" data-suffix="+">0</span>
+                                <span class="stat-label">Années d'Expérience</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value count-up" data-target="20" data-prefix="$"
+                                    data-suffix="M+">0</span>
+                                <span class="stat-label">Budget Annuel Géré</span>
+                            </div>
+                        </div>
+                        <div class="visual-badges">
+                            <span class="badge visual-badge"><i class="ph ph-first-aid"></i> Docteur d'état en
+                                Pharmacie</span>
+                            <span class="badge visual-badge"><i class="ph ph-globe-hemisphere-west"></i> Gestionnaires
+                                des projets de
+                                USAID/PEPFAR</span>
+                            <span class="badge visual-badge"><i class="ph ph-shield-check"></i> Régulation & Qualité
+                                (ISO/OMS)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">À propos de moi</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-text fade-in">
+                        <p class="lead-text">
+                            Docteur d’état en Pharmacie, je suis un leader en santé publique spécialisé dans le
+                            renforcement des systèmes pharmaceutiques et la traçabilité intégrale des produits de santé.
+                        </p>
+                        <p>
+                            Actuellement <strong>Directeur Pays GHSC-PSM (Chemonics / Gouvernement américain)</strong>
+                            et <strong>Chef de
+                                Projet ePharmacie (Présidence du Bénin)</strong>, je pilote des initiatives stratégiques
+                            pour la sécurisation et la traçabilité des produits de santé au Bénin.
+                        </p>
+                        <ul class="achievement-list">
+                            <li>
+                                <i class="ph-fill ph-check-circle"></i>
+                                <div>
+                                    <strong>Digitalisation nationale</strong>
+                                    <span>Implémentation du eLMIS (eSIGL), eDISP pour le VIH/PEPFAR et interopérabilité
+                                        avec SAGE SoBAPS.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="ph-fill ph-check-circle"></i>
+                                <div>
+                                    <strong>Performance logistique</strong>
+                                    <span>Réduction drastique des ruptures de stock (ex. ILP : de 20 % à 1 %) et taux de
+                                        rapportage national propulsé à 100 %.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="ph-fill ph-check-circle"></i>
+                                <div>
+                                    <strong>Gestion de Projets d'Envergure</strong>
+                                    <span>Direction de projets internationaux de CHEMONICS INTERNATIONAL (Financement
+                                        USAID, UNICEF, UNFPA, Fonds mondial) cumulant plus de 20M USD/an, sécurisant les
+                                        approvisionnements en ARV et antipaludiques.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="about-cards fade-in fade-in-delay-1">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="ph ph-graduation-cap"></i></div>
+                            <h3>Qualification</h3>
+                            <ul>
+                                <li>Docteur d'état en Pharmacie</li>
+                                <li>Pharmacien de Santé Publique</li>
+                                <li>Spécialiste SI Sanitaire Pharmaceutique</li>
+                            </ul>
+                        </div>
+                        <div class="info-card mt-card">
+                            <div class="info-icon"><i class="ph ph-briefcase"></i></div>
+                            <h3>Postes Actuels</h3>
+                            <div class="current-roles">
+                                <p><strong>Chef de Projet ePharmacie</strong><br>
+                                    Pilotage stratégique du projet national de traçabilité des produits de santé au
+                                    Bénin (depuis Avril 2025).</p>
+                                <hr style="margin: 1rem 0; border: 0; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <p><strong>Directeur Pays GHSC-PSM Bénin</strong><br>
+                                    Direction stratégique du projet d'approvisionnement USAID/Chemonics (depuis
+                                    Septembre 2024).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section -->
+        <section class="expertise section bg-light" id="expertise">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Expertise Clé</h2>
+                    <div class="section-line"></div>
+                    <p class="section-subtitle">Un éventail de compétences pointues au service de la santé publique
+                        mondiale.</p>
+                </div>
+
+                <div class="expertise-grid">
+                    <div class="expertise-card fade-in">
+                        <div class="expertise-icon"><i class="ph ph-truck"></i></div>
+                        <h3 class="expertise-title">Supply Chain Internationale</h3>
+                        <p class="expertise-desc">Expertise approfondie en chaîne d'approvisionnement des produits de
+                            santé, planification, quantification et sécurisation des approvisionnements critiques.</p>
+                    </div>
+
+                    <div class="expertise-card fade-in fade-in-delay-1">
+                        <div class="expertise-icon"><i class="ph ph-database"></i></div>
+                        <h3 class="expertise-title">Digitalisation & ePharmacie</h3>
+                        <p class="expertise-desc">Systèmes d'information sanitaire pharmaceutique, implémentation de
+                            eLMIS (eSIGL), interopérabilité des données et traçabilité nationale.</p>
+                    </div>
+
+                    <div class="expertise-card fade-in fade-in-delay-2">
+                        <div class="expertise-icon"><i class="ph ph-handshake"></i></div>
+                        <h3 class="expertise-title">Gestion de Projets Bailleurs</h3>
+                        <p class="expertise-desc">Gestion stratégique, technique et financière de projets complexes
+                            (USAID/USG, PEPFAR, PMI, Fonds Mondial, UNFPA, UNICEF).</p>
+                    </div>
+
+                    <div class="expertise-card fade-in">
+                        <div class="expertise-icon"><i class="ph ph-scales"></i></div>
+                        <h3 class="expertise-title">Régulation Pharmaceutique</h3>
+                        <p class="expertise-desc">Management de la qualité (ISO 9001, OMS GBT), pharmacovigilance,
+                            modélisation CARTOPHARMA et inspections pharmaceutiques.</p>
+                    </div>
+
+                    <div class="expertise-card fade-in fade-in-delay-1">
+                        <div class="expertise-icon"><i class="ph ph-users-three"></i></div>
+                        <h3 class="expertise-title">Leadership & Renforcement</h3>
+                        <p class="expertise-desc">Coordination du Programme des Jeunes Logisticiens Professionnels,
+                            autonomisation des DRZS et renforcement des capacités institutionnelles.</p>
+                    </div>
+
+                    <div class="expertise-card fade-in fade-in-delay-2">
+                        <div class="expertise-icon"><i class="ph ph-chart-line-up"></i></div>
+                        <h3 class="expertise-title">Suivi & Évaluation (S&E)</h3>
+                        <p class="expertise-desc">Évaluation des performances logistiques, développement de KPIs et
+                            conception de base de données d'aide à la décision.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="experience section" id="experience">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Parcours Professionnel</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="timeline">
+                    <!-- Exp 1 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Avril 2025 - Présent</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Chef de Projet ePharmacie</h3>
+                            <h4 class="timeline-company">ABMed/Ministère de la Santé/Présidence, Bénin</h4>
+                            <p>Direction stratégique du projet national de traçabilité intégrale des produits de santé.
+                            </p>
+                            <ul>
+                                <li>Pilotage stratégique du projet national ePharmacie et définition des orientations
+                                    opérationnelles pour assurer une mise en œuvre efficace.</li>
+                                <li>Garantie de la conformité réglementaire du dispositif, notamment en matière de
+                                    traçabilité des médicaments et de protection des données de santé.</li>
+                                <li>Coordination des parties prenantes institutionnelles et techniques : ministères,
+                                    agences sanitaires, partenaires techniques et financiers, et acteurs du secteur
+                                    privé.</li>
+                                <li>Supervision du développement, du déploiement et de l’interopérabilité de la
+                                    plateforme avec les systèmes numériques de santé existants.</li>
+                                <li>Suivi de l’exécution du projet, production de rapports stratégiques et appui à la
+                                    prise de décision des instances dirigeantes.</li>
+                                <li>Gestion des risques opérationnels et stratégiques, avec mise en place de mesures de
+                                    mitigation et renforcement de la qualité et de la sécurité des données.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 2.1 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Septembre 2024 - Présent</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Directeur Pays GHSC-PSM Bénin</h3>
+                            <h4 class="timeline-company">Chemonics International – Bénin / Gouvernement américain</h4>
+                            <p>Direction stratégique et opérationnelle du programme national d’approvisionnement et de
+                                logistique des produits de santé financé par le Gouvernement américain.</p>
+                            <ul>
+                                <li>Supervision complète des processus d’achats internationaux : planification des
+                                    besoins, passation des marchés, expédition, dédouanement et distribution nationale
+                                    des médicaments et intrants de santé.</li>
+                                <li>Pilotage de la performance de la chaîne d’approvisionnement afin de réduire les
+                                    risques de ruptures, optimiser les délais logistiques et garantir la conformité aux
+                                    normes internationales et aux exigences bailleurs.</li>
+                                <li>Coordination institutionnelle avec les autorités nationales, fournisseurs
+                                    internationaux, transitaires, partenaires techniques et acteurs du système de santé
+                                    pour renforcer la fiabilité des opérations logistiques.</li>
+                                <li>Élaboration et mise en œuvre des plans de travail annuels et des budgets alignés sur
+                                    les priorités gouvernementales et celles des partenaires techniques et financiers.
+                                </li>
+                                <li>Suivi intégré des performances programmatiques, financières et administratives, avec
+                                    mise en place d’indicateurs de performance et de mécanismes d’amélioration continue.
+                                </li>
+                                <li>Gestion des risques stratégiques et opérationnels liés aux achats et à la logistique
+                                    pharmaceutique, et mise en œuvre de plans d’atténuation.</li>
+                                <li>Supervision du dispositif de suivi-évaluation et pilotage d’analyses de performance
+                                    pour orienter les décisions stratégiques.</li>
+                                <li>Renforcement des capacités des systèmes nationaux de chaîne d’approvisionnement et
+                                    développement des compétences des équipes techniques.</li>
+                                <li>Management direct des équipes techniques et administratives du programme, incluant
+                                    la supervision des responsables des opérations et des finances.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 2.2 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Juin 2023 - Août 2024</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Directeur Pays GHSC-TA Francophone TO Bénin</h3>
+                            <h4 class="timeline-company">Chemonics International – Bénin / USAID</h4>
+                            <p>Leadership technique dans l’assistance au Ministère de la Santé pour l’implémentation du
+                                système national eLMIS (eSIGL).</p>
+                            <ul>
+                                <li>Pilotage des interopérabilités entre l’eSIGL et le logiciel SAGE de la SoBAPS,
+                                    assurant un flux continu des produits de santé et des données logistiques sur
+                                    l’ensemble de la chaîne d'approvisionnement.</li>
+                                <li>Coordination des travaux ayant conduit à la rédaction et à la validation du premier
+                                    document national de gestion des risques de la chaîne d’approvisionnement au Bénin.
+                                </li>
+                                <li>Concertation institutionnelle avec le cabinet du Ministre de la Santé et les parties
+                                    prenantes pour initier les réformes relatives à l’autonomisation des dépôts
+                                    répartiteurs des zones sanitaires.</li>
+                                <li>Élaboration et mise en œuvre des plans de travail et budgets annuels conformément
+                                    aux priorités de l’USAID, du Ministère de la Santé et des partenaires techniques.
+                                </li>
+                                <li>Mise en place de méthodologies de gestion pour planifier, organiser et contrôler
+                                    efficacement les ressources du projet.</li>
+                                <li>Supervision du suivi-évaluation : collecte, analyse et rapportage des données de
+                                    performance pour soutenir la prise de décision stratégique.</li>
+                                <li>Identification et gestion des risques programmatiques et logistiques, avec
+                                    développement et mise en œuvre de stratégies d’atténuation adaptées.</li>
+                                <li>Renforcement des capacités des systèmes nationaux de chaîne d’approvisionnement à
+                                    travers des formations techniques et un appui institutionnel.</li>
+                                <li>Supervision des performances programmatiques, financières et administratives et
+                                    encadrement direct des équipes techniques, opérationnelles et financières.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 2.3 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Janvier 2023 - Mai 2023</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Conseiller Sénior en chaîne d'approvisionnement VIH/SIDA</h3>
+                            <h4 class="timeline-company">Chemonics International-Bénin / GHSCTA-FTO</h4>
+                            <p>Contribution majeure à la digitalisation de la gestion des intrants VIH (ARV et
+                                laboratoire) via l’intégration du système eDISP, adopté par le PSLS/MS et mis à
+                                l'échelle nationale avec le soutien du Fonds Mondial.</p>
+                            <ul>
+                                <li>Assistance technique au PSLS pour le renforcement des services et l'implémentation
+                                    des
+                                    meilleures pratiques (quantification, gestion des stocks, SIGL, pharmacovigilance).
+                                </li>
+                                <li>Évaluation et optimisation des conditions de stockage et de gestion des produits de
+                                    lutte contre le SIDA et la PTME.</li>
+                                <li>Coordination étroite avec le PSLS, la SoBAPS et les DRZS pour garantir la
+                                    disponibilité des produits à tous les niveaux de la pyramide sanitaire.</li>
+                                <li>Renforcement des capacités des acteurs nationaux via l'organisation de formations
+                                    sur
+                                    les outils de gestion et de rapportage.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 2.4 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Juillet 2021 - Décembre 2022</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Conseiller Régional en Chaîne d'Approvisionnement</h3>
+                            <h4 class="timeline-company">Chemonics International – Bénin / GHSCTA-FTO</h4>
+                            <p>Appui technique à la mise en œuvre des interventions de gestion de la chaîne
+                                d’approvisionnement des produits de santé.</p>
+                            <ul>
+                                <li>Renforcement des capacités des structures sanitaires régionales et des
+                                    établissements
+                                    de santé pour améliorer la sécurité des produits et la performance logistique.</li>
+                                <li>Soutien aux comités régionaux dans la coordination des stocks, le suivi des
+                                    inventaires et la gestion des distributions.</li>
+                                <li>Organisation de formations et supervision formative du personnel de santé en gestion
+                                    des stocks, stockage et rapportage logistique.</li>
+                                <li>Amélioration des systèmes d’information logistique, suivi des indicateurs d’alerte
+                                    précoce et contrôle de la disponibilité continue des produits.</li>
+                                <li>Réalisation d’audits de qualité des données et production de rapports de performance
+                                    pour appuyer la prise de décision.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 3 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Juin 2019 - Juin 2021</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Coordonnateur National du Programme (PJLP)</h3>
+                            <h4 class="timeline-company">Plateforme du secteur privé de la santé au Bénin</h4>
+                            <p>Leadership du Programme des Jeunes Logisticiens Professionnels, générant des résultats
+                                majeurs.</p>
+                            <ul>
+                                <li>Passage du taux de rapportage national de 50% à 100% dès la première année.</li>
+                                <li>Réduction drastique des ruptures de stock d'intrants de santé (ILP de 20% à 1%).
+                                </li>
+                                <li>Coaching et supervision mensuelle d'une équipe de logisticiens juniors (JLPs) sur
+                                    tout le pays.</li>
+                                <li>Création d'un cadre de collaboration durable entre acteurs de santé et élus locaux.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Exp 4 -->
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Nov 2017 - Oct 2019</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-role">Pharmacien Superviseur & Qualité</h3>
+                            <h4 class="timeline-company">DPMED (Actuelle ABMed), Ministère de la Santé</h4>
+                            <p>Expert en régulation et management de la qualité selon les standards OMS.</p>
+                            <ul>
+                                <li>Développement de CARTOPHARMA : cartographie numérique dynamique des établissements.
+                                </li>
+                                <li>Évaluation GBT de l'OMS : analyse des 286 indicateurs de performance du système
+                                    qualité.</li>
+                                <li>Organisation et conduite d'inspections pharmaceutiques périodiques et inopinées.
+                                </li>
+                                <li>Gestion de la pharmacovigilance et des stocks de produits périmés au niveau
+                                    national.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formations Section -->
+        <section class="formations section bg-light" id="formations">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Formations</h2>
+                    <div class="section-line"></div>
+                    <p class="section-subtitle">Parcours académique et professionnalisation continue.</p>
+                </div>
+
+                <!-- Sous-section Académique -->
+                <div class="formation-subsection fade-in">
+                    <h3 class="subsection-title"><i class="ph ph-graduation-cap"></i> Formations Académiques</h3>
+                    <div class="formation-list">
+                        <div class="formation-item">
+                            <div class="formation-year-box">2023</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Certificat en Santé publique</h4>
+                                <p class="formation-detail">EPIM Afrique MAROC</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">2019</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Droits en matière de santé sexuelle et reproductive</h4>
+                                <p class="formation-detail">IRSP BÉNIN</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">2012-2017</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Doctorat d'Etat en Pharmacie</h4>
+                                <p class="formation-detail">Université d'Abomey-Calavi, Faculté des sciences de la
+                                    santé, BÉNIN</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">2011</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Baccalauréat</h4>
+                                <p class="formation-detail">Collège Djakotomey d'éducation générale, BÉNIN</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sous-section Professionnelle -->
+                <div class="formation-subsection fade-in mt-5">
+                    <h3 class="subsection-title"><i class="ph ph-briefcase-metal"></i> Formations Professionnelles</h3>
+                    <div class="formation-list">
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Formation en leadership et en gestion des relations
+                                    communautaires en temps de pandémie</h4>
+                                <p class="formation-detail">Galilée, ISRAËL</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Certification Mid-Level Manager - Master</h4>
+                                <p class="formation-detail">OMS</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Système de gestion de la qualité des autorités nationales de
+                                    réglementation pharmaceutique</h4>
+                                <p class="formation-detail">OMS</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Formation d'experts en évaluation de dossiers</h4>
+                                <p class="formation-detail">Ministère de la Santé, Bénin</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Formation ISO 9001 et 17020</h4>
+                                <p class="formation-detail">UEMOA, Bénin</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Formation sur les Systèmes de Management de la Qualité au
+                                    sein de l'ANRP</h4>
+                                <p class="formation-detail">OMS, Burkina Faso</p>
+                            </div>
+                        </div>
+                        <div class="formation-item">
+                            <div class="formation-year-box">-</div>
+                            <div class="formation-info">
+                                <h4 class="formation-title">Formation à la certification ISO 9001 - 2015</h4>
+                                <p class="formation-detail">Agence Nationale de Métrologie, Bénin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificats Section -->
+        <section class="certifications section" id="certifications">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Certificats & Titres d'Excellence</h2>
+                    <div class="section-line"></div>
+                    <p class="section-subtitle">Reconnaissances internationales et expertises de terrain.</p>
+                </div>
+
+                <div class="certifications-timeline">
+                    <!-- Item 1 -->
+                    <div class="cert-timeline-item fade-in">
+                        <div class="cert-timeline-date">2023</div>
+                        <div class="cert-timeline-dot"></div>
+                        <div class="cert-timeline-content-box">
+                            <h3>Formation des Formateurs QAT</h3>
+                            <p>Quantification et prévision des besoins en intrants de santé (Kinshasa, RDC).</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="cert-timeline-item fade-in">
+                        <div class="cert-timeline-date">2023</div>
+                        <div class="cert-timeline-dot"></div>
+                        <div class="cert-timeline-content-box">
+                            <h3>Enquête Nationale EUV</h3>
+                            <p>Organisation et participation au Bénin (Mai 2023).</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="cert-timeline-item fade-in">
+                        <div class="cert-timeline-date">2022</div>
+                        <div class="cert-timeline-dot"></div>
+                        <div class="cert-timeline-content-box">
+                            <h3>People That Deliver (PtD)</h3>
+                            <p>Présentation du PJLP à la conférence internationale (Lusaka, Zambie).</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="cert-timeline-item fade-in">
+                        <div class="cert-timeline-date">2020</div>
+                        <div class="cert-timeline-dot"></div>
+                        <div class="cert-timeline-content-box">
+                            <h3>Gestion Logistique COVID-19</h3>
+                            <p>Expertise OMS/Ministère de la Santé (COVID-EFST V1.2).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Languages Section -->
+        <section class="skills section bg-light" id="skills">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Outils & Compétences Techniques</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="skills-wrapper">
+                    <div class="skills-category fade-in">
+                        <h3>Logiciels & SI Sanitaire</h3>
+                        <div class="skills-badges">
+                            <span class="skill-tag">DHIS2</span>
+                            <span class="skill-tag">eSIGL</span>
+                            <span class="skill-tag">eDISP</span>
+                            <span class="skill-tag">SVDL</span>
+                            <span class="skill-tag">SAGE</span>
+                            <span class="skill-tag">SIGIP ARP</span>
+                            <span class="skill-tag">CartoPharma</span>
+                            <span class="skill-tag">ArcGIS</span>
+                            <span class="skill-tag">Kobocollect / ODK</span>
+                            <span class="skill-tag">Microsoft Office (Pack)</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-category fade-in fade-in-delay-1">
+                        <h3>Langues & Divers</h3>
+                        <div class="skills-badges">
+                            <span class="skill-tag">Français (Courant/Bilingue)</span>
+                            <span class="skill-tag">Anglais (Professionnel)</span>
+                            <span class="skill-tag">Fon</span>
+                            <span class="skill-tag">Adja</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Centres d'intérêts -->
+        <section class="interests section" id="interests">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Centres d'intérêts</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="interests-grid">
+                    <div class="interest-card fade-in">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-music-notes"></i>
+                        </div>
+                        <p class="interest-label">Musique</p>
+                    </div>
+                    <div class="interest-card fade-in fade-in-delay-1">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-camera"></i>
+                        </div>
+                        <p class="interest-label">Photographie</p>
+                    </div>
+                    <div class="interest-card fade-in fade-in-delay-2">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-airplane"></i>
+                        </div>
+                        <p class="interest-label">Voyage</p>
+                    </div>
+                    <div class="interest-card fade-in fade-in-delay-3">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-barbell"></i>
+                        </div>
+                        <p class="interest-label">Sport</p>
+                    </div>
+                    <div class="interest-card fade-in fade-in-delay-4">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-palette"></i>
+                        </div>
+                        <p class="interest-label">Dessin</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Media Bar -->
+        <div class="social-bar">
+            <div class="social-bar-inner">
+                <a href="https://web.facebook.com/hope.akohouviamou" class="social-btn facebook" aria-label="Facebook"
+                    target="_blank">
+                    <i class="ph ph-facebook-logo"></i>
+                </a>
+                <a href="https://www.tiktok.com/@akamhp" class="social-btn tiktok" aria-label="TikTok" target="_blank">
+                    <i class="ph ph-tiktok-logo"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/hope-akohouvi-amou-a015891a6/" class="social-btn linkedin"
+                    aria-label="LinkedIn" target="_blank">
+                    <i class="ph ph-linkedin-logo"></i>
+                </a>
+                <a href="https://www.instagram.com/aahope.officiel/" class="social-btn instagram" aria-label="Instagram"
+                    target="_blank">
+                    <i class="ph ph-instagram-logo"></i>
+                </a>
+                <a href="https://wa.me/22990161549" class="social-btn whatsapp" aria-label="WhatsApp" target="_blank">
+                    <i class="ph ph-whatsapp-logo"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Call To Action / Contact -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Contact</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="contact-wrapper fade-in">
+                    <!-- 3 Column Info Blocks -->
+                    <div class="contact-info-blocks">
+                        <div class="info-block">
+                            <i class="ph ph-map-pin"></i>
+                            <h4 class="info-title">ADRESSE</h4>
+                            <p class="info-detail">COTONOU, BÉNIN</p>
+                        </div>
+                        <div class="info-divider"></div>
+                        <div class="info-block">
+                            <i class="ph ph-envelope-simple"></i>
+                            <h4 class="info-title">EMAIL</h4>
+                            <a href="mailto:ahopea01@gmail.com" class="info-detail">ahopea01@gmail.com</a>
+                        </div>
+                        <div class="info-divider"></div>
+                        <div class="info-block">
+                            <i class="ph ph-device-mobile"></i>
+                            <h4 class="info-title">TÉLÉPHONE</h4>
+                            <p class="info-detail">+229 90 16 15 49</p>
+                            <p class="info-detail">+229 63 80 25 54</p>
+                        </div>
+                    </div>
+
+                    <!-- Minimalist Form -->
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <input type="text" placeholder="Nom" class="form-input" required>
+                            <input type="email" placeholder="Email" class="form-input" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" placeholder="Sujet" class="form-input" required>
+                        </div>
+                        <div class="form-row">
+                            <textarea placeholder="Message" class="form-textarea" rows="5" required></textarea>
+                        </div>
+                        <div class="submit-wrapper">
+                            <button type="submit" class="btn-outline">ENVOYER</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-text">Dr. Hope A.</span>
+                <p>Docteur en Pharmacie & Expert Santé Publique.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#about">À propos</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#experience">Expérience</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Dr. Hope AKOHOUVI AMOU. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/22990161549" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+    </a>
+</body>
+
+</html>

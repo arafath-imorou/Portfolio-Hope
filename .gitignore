@@ -1,0 +1,13 @@
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary scripts
+tmp/
+read_docx.py
+performance_plan.md
