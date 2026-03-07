@@ -89,7 +89,7 @@ async function loadEditorData() {
     if (generalData) {
         generalInputs.innerHTML = generalData.map(item => `
             <div class="input-group">
-                <label>${item.id}</label>
+                <div class="edit-cue"><i class="ph ph-pencil-simple-line"></i> ${item.id}</div>
                 <textarea class="admin-input" data-id="${item.id}" rows="3">${item.content}</textarea>
             </div>
         `).join('');
@@ -102,6 +102,7 @@ async function loadEditorData() {
         expertiseList.innerHTML = expertiseData.map(exp => `
             <div class="item-editor" data-id="${exp.id}" data-table="expertise">
                 <span class="delete-btn" onclick="deleteItem('${exp.id}', 'expertise')"><i class="ph ph-trash"></i></span>
+                <div class="edit-cue"><i class="ph ph-pencil-simple-line"></i> Édition Expertise</div>
                 <input type="text" class="admin-input" placeholder="Titre" value="${exp.title}" data-field="title">
                 <input type="text" class="admin-input" placeholder="Icon (Phosphor)" value="${exp.icon}" data-field="icon">
                 <textarea class="admin-input" placeholder="Description" data-field="description">${exp.description}</textarea>
@@ -117,6 +118,7 @@ async function loadEditorData() {
         expList.innerHTML = expData.map(exp => `
             <div class="item-editor" data-id="${exp.id}" data-table="experiences">
                 <span class="delete-btn" onclick="deleteItem('${exp.id}', 'experiences')"><i class="ph ph-trash"></i></span>
+                <div class="edit-cue"><i class="ph ph-pencil-simple-line"></i> Édition Expérience</div>
                 <input type="text" class="admin-input" placeholder="Rôle" value="${exp.role}" data-field="role">
                 <input type="text" class="admin-input" placeholder="Entreprise" value="${exp.company}" data-field="company">
                 <input type="text" class="admin-input" placeholder="Période" value="${exp.period}" data-field="period">
@@ -133,6 +135,7 @@ async function loadEditorData() {
         formationsList.innerHTML = formData.map(f => `
             <div class="item-editor" data-id="${f.id}" data-table="formations">
                 <span class="delete-btn" onclick="deleteItem('${f.id}', 'formations')"><i class="ph ph-trash"></i></span>
+                <div class="edit-cue"><i class="ph ph-pencil-simple-line"></i> Édition Formation</div>
                 <select class="admin-input" data-field="type">
                     <option value="academic" ${f.type === 'academic' ? 'selected' : ''}>Académique</option>
                     <option value="professional" ${f.type === 'professional' ? 'selected' : ''}>Professionnel</option>
@@ -152,6 +155,7 @@ async function loadEditorData() {
         skillsList.innerHTML = skillData.map(s => `
             <div class="item-editor" data-id="${s.id}" data-table="skills">
                 <span class="delete-btn" onclick="deleteItem('${s.id}', 'skills')"><i class="ph ph-trash"></i></span>
+                <div class="edit-cue"><i class="ph ph-pencil-simple-line"></i> Édition Compétence</div>
                 <select class="admin-input" data-field="category">
                     <option value="software" ${s.category === 'software' ? 'selected' : ''}>Outil</option>
                     <option value="language" ${s.category === 'language' ? 'selected' : ''}>Langue</option>
