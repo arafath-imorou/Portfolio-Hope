@@ -200,13 +200,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 7. Hidden Admin Access ---
-    // Clicking the copyright in footer 5 times opens the login page
-    const footerBottom = document.querySelector('.footer-bottom p');
+    // Clicking "2026" in footer 5 times opens the login page
+    const adminTrigger = document.getElementById('admin-trigger');
     let clickCount = 0;
 
-    if (footerBottom) {
-        footerBottom.style.cursor = 'default';
-        footerBottom.addEventListener('click', () => {
+    if (adminTrigger) {
+        adminTrigger.style.cursor = 'default';
+        adminTrigger.addEventListener('click', () => {
             clickCount++;
             if (clickCount === 5) {
                 window.location.href = 'login.html';
