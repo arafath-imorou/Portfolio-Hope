@@ -1597,8 +1597,9 @@ ul {
     font-size: 2.5rem;
     font-weight: 800;
     font-family: var(--font-heading);
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    opacity: 0.9;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    color: #ffffff !important;
+    opacity: 1;
     letter-spacing: 1px;
 }
 
