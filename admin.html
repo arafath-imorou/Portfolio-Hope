@@ -8,251 +8,502 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        .admin-layout {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        :root {
+            --sidebar-width: 280px;
+            --primary-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        .admin-header {
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            background: var(--primary-bg);
+        }
+
+        .admin-wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 2rem;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .sidebar-header p {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0.2rem 0 0 0;
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.2rem;
+            color: #555;
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            background: #f0efff;
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .nav-item i {
+            font-size: 1.3rem;
+        }
+
+        .nav-divider {
+            font-size: 0.65rem;
+            color: #aaa;
+            font-weight: 700;
+            margin: 2rem 0 0.8rem 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #f5f5f5;
+            background: #fafafa;
+        }
+
+        .view-site,
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .view-site {
+            color: #555;
+        }
+
+        .logout-link {
+            color: #ff4757;
+            margin-bottom: 0;
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .main-header {
+            padding: 1.5rem 2.5rem;
+            background: white;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3rem;
         }
 
-        .logout-btn {
-            background: #ff4757;
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
+        .main-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0;
+            color: #333;
         }
 
-        .message-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+        #last-sync {
+            font-size: 0.8rem;
+            color: #999;
         }
 
-        .message-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
-            border: 1px solid #f0f0f0;
-            transition: 0.3s;
+        .content-container {
+            padding: 2.5rem;
+            overflow-y: auto;
+            flex: 1;
         }
 
-        .message-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        .tab-content {
+            animation: fadeIn 0.4s ease-out;
         }
 
-        .msg-meta {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-        .msg-name {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.2rem;
-        }
-
-        .msg-email {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 1rem;
-        }
-
-        .msg-subject {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .msg-body {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #444;
-        }
-
-        .loading-state {
-            text-align: center;
-            padding: 4rem;
-            color: #888;
-        }
-    </style>
-</head>
-
-<body class="bg-light">
-    <div class="admin-layout">
-        <header class="admin-header">
-            <div>
-                <h1 class="logo-text">Dashboard Admin</h1>
-                <p>Gérez vos messages et votre contenu</p>
-            </div>
-            <div>
-                <nav style="display: inline-flex; gap: 1rem; margin-right: 2rem;">
-                    <a href="#" class="tab-btn active" data-tab="messages">Messages</a>
-                    <a href="#" class="tab-btn" data-tab="editor">Éditeur</a>
-                </nav>
-                <a href="#" id="logout-btn" class="logout-btn">Déconnexion</a>
-            </div>
-        </header>
-
-        <!-- Messages Section -->
-        <div id="messages-section" class="tab-content">
-            <div id="messages-container" class="message-grid">
-                <div class="loading-state">Initialisation des messages...</div>
-            </div>
-        </div>
-
-        <!-- Editor Section -->
-        <div id="editor-section" class="tab-content" style="display: none;">
-            <div class="editor-grid">
-                <div class="admin-card">
-                    <h3>Contenu Général</h3>
-                    <form id="general-editor" class="editor-form">
-                        <div id="general-inputs">Loading...</div>
-                        <button type="submit" class="save-btn">Enregistrer</button>
-                    </form>
-                </div>
-
-                <div class="admin-card">
-                    <h3>Expertise</h3>
-                    <div id="expertise-list" class="list-editor"></div>
-                    <button class="add-btn" onclick="addItem('expertise')">+ Ajouter une expertise</button>
-                </div>
-
-                <div class="admin-card">
-                    <h3>Expériences</h3>
-                    <div id="experiences-list" class="list-editor"></div>
-                    <button class="add-btn" onclick="addItem('experiences')">+ Ajouter une expérience</button>
-                </div>
-
-                <div class="admin-card">
-                    <h3>Formations</h3>
-                    <div id="formations-list" class="list-editor"></div>
-                    <button class="add-btn" onclick="addItem('formations')">+ Ajouter une formation</button>
-                </div>
-
-                <div class="admin-card">
-                    <h3>Compétences</h3>
-                    <div id="skills-list" class="list-editor"></div>
-                    <button class="add-btn" onclick="addItem('skills')">+ Ajouter une compétence</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        .tab-btn {
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            color: #666;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .editor-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .admin-card {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.02);
         }
 
-        .editor-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .admin-card h3 {
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            border-left: 5px solid var(--primary);
+            padding-left: 1.2rem;
+        }
+
+        /* Form Controls */
+        .editor-grid-auto {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            gap: 2rem;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            background: #fdfdfd;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid #f0f0f0;
         }
 
         .input-group label {
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
+            color: #aaa;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .admin-input {
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .admin-input,
+        .admin-input-hero {
+            padding: 1rem;
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            background: white;
+        }
+
+        .admin-input:focus,
+        .admin-input-hero:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
         }
 
         .save-btn,
         .add-btn {
             background: var(--primary);
             color: white;
-            padding: 0.8rem;
             border: none;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .save-btn:hover,
+        .add-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.25);
         }
 
         .item-editor {
-            border: 1px solid #eee;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
             position: relative;
+            transition: 0.3s;
+        }
+
+        .item-editor:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
         }
 
         .delete-btn {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
+            top: 1.5rem;
+            right: 1.5rem;
             color: #ff4757;
             cursor: pointer;
-            opacity: 0.6;
+            padding: 8px;
+            border-radius: 10px;
             transition: 0.3s;
+            font-size: 1.2rem;
         }
 
         .delete-btn:hover {
-            opacity: 1;
+            background: #fff5f6;
+            transform: scale(1.1);
         }
 
         .edit-cue {
-            display: inline-flex;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        /* Messages */
+        .message-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .message-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #f5f5f5;
+        }
+
+        .msg-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .msg-name {
+            font-weight: 800;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .msg-email {
             color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
 
-        .edit-cue i {
-            font-size: 1rem;
+        .msg-body {
+            margin-top: 1.5rem;
+            line-height: 1.7;
+            color: #555;
         }
 
-        .admin-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ccc;
         }
     </style>
+</head>
+
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo-text">Hope Admin</h1>
+                <p>Système de Gestion</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="messages">
+                    <i class="ph ph-envelope"></i> <span>Messages</span>
+                </a>
+                <div class="nav-divider">CONTENU SITE</div>
+                <a href="#" class="nav-item" data-tab="hero">
+                    <i class="ph ph-house"></i> <span>Accueil / Hero</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="career">
+                    <i class="ph ph-briefcase"></i> <span>Parcours Pro</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="formations">
+                    <i class="ph ph-graduation-cap"></i> <span>Formations</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="skills">
+                    <i class="ph ph-wrench"></i> <span>Compétences</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="interests">
+                    <i class="ph ph-heart"></i> <span>Intérêts</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="social">
+                    <i class="ph ph-share-network"></i> <span>Réseaux & Contact</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html" target="_blank" class="view-site">
+                    <i class="ph ph-arrow-square-out"></i> Voir le site
+                </a>
+                <a href="#" id="logout-btn" class="logout-link">
+                    <i class="ph ph-sign-out"></i> Déconnexion
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            <header class="main-header">
+                <h2 id="section-title">Messages Reçus</h2>
+                <div class="header-actions">
+                    <span id="last-sync">Dernière synchro: Jamais</span>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <!-- Section: Messages -->
+                <div id="messages-section" class="tab-content">
+                    <div id="messages-container" class="message-grid">
+                        <div class="loading-state">Chargement des messages...</div>
+                    </div>
+                </div>
+
+                <!-- Section: Hero/Accueil -->
+                <div id="hero-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Configuration de l'Accueil</h3>
+                        <div id="hero-inputs" class="editor-grid-auto"></div>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Statistiques (Compteurs)</h3>
+                        <div id="stats-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('statistics')"><i class="ph ph-plus-circle"></i>
+                            Ajouter une statistique</button>
+                    </div>
+                </div>
+
+                <!-- Section: Career/Parcours -->
+                <div id="career-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Expertise (Grille)</h3>
+                        <div id="expertise-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('expertise')"><i class="ph ph-plus-circle"></i> Ajouter
+                            une expertise</button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Expériences Professionnelles</h3>
+                        <div id="experiences-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('experiences')"><i class="ph ph-plus-circle"></i>
+                            Ajouter une expérience</button>
+                    </div>
+                </div>
+
+                <!-- Section: Formations -->
+                <div id="formations-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Cursus Académique</h3>
+                        <div id="formations-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('formations')"><i class="ph ph-plus-circle"></i>
+                            Ajouter une formation</button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Certifications (Timeline)</h3>
+                        <div id="certifications-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('certifications')"><i class="ph ph-plus-circle"></i>
+                            Ajouter un certificat</button>
+                    </div>
+                </div>
+
+                <!-- Section: Skills -->
+                <div id="skills-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Outils, Logiciels & Langues</h3>
+                        <div id="skills-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('skills')"><i class="ph ph-plus-circle"></i> Ajouter
+                            une compétence</button>
+                    </div>
+                </div>
+
+                <!-- Section: Interests -->
+                <div id="interests-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Centres d'intérêts</h3>
+                        <div id="interests-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('interests')"><i class="ph ph-plus-circle"></i> Ajouter
+                            un intérêt</button>
+                    </div>
+                </div>
+
+                <!-- Section: Social -->
+                <div id="social-section" class="tab-content" style="display: none;">
+                    <div class="admin-card">
+                        <h3>Réseaux Sociaux</h3>
+                        <div id="social-list" class="list-editor"></div>
+                        <button class="add-btn" onclick="addItem('social_links')"><i class="ph ph-plus-circle"></i>
+                            Ajouter un lien social</button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Coordonnées Directes</h3>
+                        <div id="contact-inputs" class="editor-grid-auto"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin.js"></script>

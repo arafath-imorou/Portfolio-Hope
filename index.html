@@ -60,9 +60,9 @@
                     <div class="badge" id="hero_badge">Pharmacien Santé Publique</div>
                     <h1 class="hero-title">
                         <span id="hero_title_prefix">Dr. Hope</span> <br>
-                        <span class="text-gradient" id="hero_title_name">AKOHOUVI AMOU</span>
+                        <span class="text-gradient" id="hero_name">AKOHOUVI AMOU</span>
                     </h1>
-                    <h2 class="hero-subtitle" id="hero_subtitle">
+                    <h2 class="hero-subtitle" id="hero_suffix">
                         Expert en Chaîne d’Approvisionnement Internationale des Produits de Santé
                     </h2>
                     <p class="hero-description" id="hero_description">
@@ -85,7 +85,7 @@
                         <img src="photo_2.png" alt="Dr. Hope AKOHOUVI AMOU" class="hero-image">
                     </div>
                     <div class="glass-card visual-card">
-                        <div class="card-stats">
+                        <div class="card-stats" id="stats-container">
                             <div class="stat-item">
                                 <span class="stat-value count-up" data-target="10" data-suffix="+">0</span>
                                 <span class="stat-label">Années d'Expérience</span>
@@ -571,7 +571,7 @@
                     <p class="section-subtitle">Reconnaissances internationales et expertises de terrain.</p>
                 </div>
 
-                <div class="certifications-timeline">
+                <div class="certifications-timeline" id="certifications-list">
                     <!-- Item 1 -->
                     <div class="cert-timeline-item fade-in">
                         <div class="cert-timeline-date">2023</div>
@@ -661,7 +661,7 @@
                     <div class="section-line"></div>
                 </div>
 
-                <div class="interests-grid">
+                <div class="interests-grid" id="interests-list">
                     <div class="interest-card fade-in">
                         <div class="interest-icon-wrapper">
                             <i class="ph ph-music-notes"></i>
@@ -698,7 +698,7 @@
 
         <!-- Social Media Bar -->
         <div class="social-bar">
-            <div class="social-bar-inner">
+            <div class="social-bar-inner" id="social-links-list">
                 <a href="https://web.facebook.com/hope.akohouviamou" class="social-btn facebook" aria-label="Facebook"
                     target="_blank">
                     <i class="ph ph-facebook-logo"></i>
@@ -734,20 +734,21 @@
                         <div class="info-block">
                             <i class="ph ph-map-pin"></i>
                             <h4 class="info-title">ADRESSE</h4>
-                            <p class="info-detail">COTONOU, BÉNIN</p>
+                            <p class="info-detail" id="contact_address">COTONOU, BÉNIN</p>
                         </div>
                         <div class="info-divider"></div>
                         <div class="info-block">
                             <i class="ph ph-envelope-simple"></i>
                             <h4 class="info-title">EMAIL</h4>
-                            <a href="mailto:ahopea01@gmail.com" class="info-detail">ahopea01@gmail.com</a>
+                            <a href="mailto:ahopea01@gmail.com" class="info-detail"
+                                id="contact_email">ahopea01@gmail.com</a>
                         </div>
                         <div class="info-divider"></div>
                         <div class="info-block">
                             <i class="ph ph-device-mobile"></i>
                             <h4 class="info-title">TÉLÉPHONE</h4>
-                            <p class="info-detail">+229 90 16 15 49</p>
-                            <p class="info-detail">+229 63 80 25 54</p>
+                            <p class="info-detail" id="contact_phone_1">+229 90 16 15 49</p>
+                            <p class="info-detail" id="contact_phone_2">+229 63 80 25 54</p>
                         </div>
                     </div>
 

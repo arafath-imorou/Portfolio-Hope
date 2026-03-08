@@ -32,19 +32,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadCMSContent() {
         try {
-            // Load Site Content (Texts)
+            // 1. Site Content (Hero, About, Contact)
             const { data: contentData } = await supabaseClient.from('site_content').select('*');
             contentData?.forEach(item => {
                 const el = document.getElementById(item.id);
-                if (el) el.innerHTML = item.content;
+                if (el) {
+                    if (item.id === 'contact_email') el.href = `mailto:${item.content}`;
+                    el.innerHTML = item.content;
+                }
             });
 
-            // Load Expertise
+            // 2. Stats (Hero/Visual)
+            const { data: statsData } = await supabaseClient.from('statistics').select('*').order('sort_order');
+            const statsContainer = document.getElementById('stats-container');
+            if (statsContainer && statsData?.length > 0) {
+                statsContainer.innerHTML = statsData.map(s => `
+                    <div class="stat-item">
+                        <span class="stat-value count-up" data-target="${s.target}" data-prefix="${s.prefix || ''}" data-suffix="${s.suffix || ''}">0</span>
+                        <span class="stat-label">${s.label}</span>
+                    </div>
+                `).join('');
+                // Restart count-up observer for new stats
+                statsContainer.querySelectorAll('.count-up').forEach(el => countUpObserver.observe(el));
+            }
+
+            // 3. Expertise
             const { data: expertiseData } = await supabaseClient.from('expertise').select('*').order('sort_order');
             const expertiseGrid = document.getElementById('expertise-grid');
             if (expertiseGrid && expertiseData?.length > 0) {
-                expertiseGrid.innerHTML = expertiseData.map(exp => `
-                    <div class="expertise-card fade-in">
+                expertiseGrid.innerHTML = expertiseData.map((exp, i) => `
+                    <div class="expertise-card fade-in" style="animation-delay: ${0.1 * (i % 3)}s">
                         <div class="expertise-icon"><i class="ph ph-${exp.icon}"></i></div>
                         <h3 class="expertise-title">${exp.title}</h3>
                         <p class="expertise-desc">${exp.description}</p>
@@ -52,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `).join('');
             }
 
-            // Load Experiences
+            // 4. Experiences
             const { data: expData } = await supabaseClient.from('experiences').select('*').order('sort_order');
             const timeline = document.getElementById('experience-timeline');
             if (timeline && expData?.length > 0) {
@@ -72,13 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 `).join('');
             }
 
-            // Load Formations
+            // 5. Formations
             const { data: formData } = await supabaseClient.from('formations').select('*').order('sort_order');
             if (formData) {
                 const academicList = document.getElementById('academic-formations');
                 const professionalList = document.getElementById('professional-formations');
-
-                if (academicList) academicList.innerHTML = formData.filter(f => f.type === 'academic').map(f => `
+                const filterMap = (f) => `
                     <div class="formation-item">
                         <div class="formation-year-box">${f.year}</div>
                         <div class="formation-info">
@@ -86,42 +102,69 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="formation-detail">${f.detail}</p>
                         </div>
                     </div>
-                `).join('');
+                `;
+                if (academicList) academicList.innerHTML = formData.filter(f => f.type === 'academic').map(filterMap).join('');
+                if (professionalList) professionalList.innerHTML = formData.filter(f => f.type === 'professional').map(filterMap).join('');
+            }
 
-                if (professionalList) professionalList.innerHTML = formData.filter(f => f.type === 'professional').map(f => `
-                    <div class="formation-item">
-                        <div class="formation-year-box">${f.year}</div>
-                        <div class="formation-info">
-                            <h4 class="formation-title">${f.title}</h4>
-                            <p class="formation-detail">${f.detail}</p>
+            // 6. Certifications
+            const { data: certData } = await supabaseClient.from('certifications').select('*').order('sort_order');
+            const certList = document.getElementById('certifications-list');
+            if (certList && certData) {
+                certList.innerHTML = certData.map((c, i) => `
+                    <div class="cert-timeline-item fade-in" style="animation-delay: ${0.1 * i}s">
+                        <div class="cert-timeline-date">${c.year}</div>
+                        <div class="cert-timeline-dot"></div>
+                        <div class="cert-timeline-content-box">
+                            <h3>${c.title}</h3>
+                            <p>${c.description}</p>
                         </div>
                     </div>
                 `).join('');
             }
 
-            // Load Skills
+            // 7. Skills
             const { data: skillData } = await supabaseClient.from('skills').select('*').order('sort_order');
             if (skillData) {
                 const softwareList = document.getElementById('software-skills');
                 const languageList = document.getElementById('language-skills');
+                const tagMap = (s) => `<span class="skill-tag">${s.name}</span>`;
+                if (softwareList) softwareList.innerHTML = skillData.filter(s => s.category === 'software').map(tagMap).join('');
+                if (languageList) languageList.innerHTML = skillData.filter(s => s.category === 'language').map(tagMap).join('');
+            }
 
-                if (softwareList) softwareList.innerHTML = skillData.filter(s => s.category === 'software').map(s => `
-                    <span class="skill-tag">${s.name}</span>
-                `).join('');
-
-                if (languageList) languageList.innerHTML = skillData.filter(s => s.category === 'language').map(s => `
-                    <span class="skill-tag">${s.name}</span>
+            // 8. Interests
+            const { data: intData } = await supabaseClient.from('interests').select('*').order('sort_order');
+            const intList = document.getElementById('interests-list');
+            if (intList && intData) {
+                intList.innerHTML = intData.map((int, i) => `
+                    <div class="interest-card fade-in" style="animation-delay: ${0.1 * i}s">
+                        <div class="interest-icon-wrapper">
+                            <i class="ph ph-${int.icon}"></i>
+                        </div>
+                        <p class="interest-label">${int.label}</p>
+                    </div>
                 `).join('');
             }
 
-            // Re-trigger scroll animations for new elements
-            revealObserver.disconnect(); // Use the existing revealObserver
-            document.querySelectorAll('.fade-in').forEach((el) => { // Only target .fade-in as per original script
+            // 9. Social Links
+            const { data: socData } = await supabaseClient.from('social_links').select('*').order('sort_order');
+            const socList = document.getElementById('social-links-list');
+            if (socList && socData) {
+                socList.innerHTML = socData.map(soc => `
+                    <a href="${soc.url}" class="social-btn ${soc.platform.toLowerCase()}" aria-label="${soc.platform}" target="_blank">
+                        <i class="ph ph-${soc.icon}"></i>
+                    </a>
+                `).join('');
+            }
+
+            // Re-trigger reveal observer for everything
+            document.querySelectorAll('.fade-in').forEach((el) => {
                 revealObserver.observe(el);
             });
 
         } catch (err) {
-            console.error('CMS Error:', err);
+            console.error('CMS Load Error:', err);
         }
     }
 
