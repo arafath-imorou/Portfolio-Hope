@@ -9,7 +9,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // --- 0.1 CMS Content Loading ---
+    // --- 0.1 Scroll Reveal Animation (Intersection Observer) ---
+    const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('appear');
+            }
+        });
+    }, revealOptions);
+
+    // Observe initial elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // --- 0.2 CMS Content Loading ---
+
     async function loadCMSContent() {
         try {
             // Load Site Content (Texts)
@@ -151,30 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. Scroll Reveal Animation (Intersection Observer) ---
-    const revealElements = document.querySelectorAll('.fade-in');
-
-    const revealOptions = {
-        threshold: 0.15, // Trigger when 15% of element is visible
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                // Optional: Stop observing once revealed
-                // observer.unobserve(entry.target); 
-            } else {
-                // Optional: Remove class if you want them to animate out when scrolled past
-                // entry.target.classList.remove('appear');
-            }
-        });
-    }, revealOptions);
-
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
-    });
+    // --- 4. Active Navigation Link Update ---
 
     // --- 4. Active Navigation Link Update ---
     const sections = document.querySelectorAll('section');
