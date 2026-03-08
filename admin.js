@@ -71,12 +71,55 @@ async function fetchMessages() {
             <div class="msg-meta"><span>${new Date(msg.created_at).toLocaleDateString()}</span><i class="ph ph-envelope"></i></div>
             <div class="msg-name">${msg.name}</div>
             <div class="msg-email">${msg.email}</div>
-            <hr style="margin: 1rem 0; border:0; border-top:1px solid #eee;">
-            <div class="msg-subject">${msg.subject || 'Sans objet'}</div>
             <div class="msg-body">${msg.message}</div>
+            <div class="msg-actions">
+                <button class="action-btn view-btn" onclick="viewMessageDetail('${msg.id}')">
+                    <i class="ph ph-eye"></i> Voir plus
+                </button>
+                <button class="action-btn delete-msg-btn" onclick="deleteMessage('${msg.id}')">
+                    <i class="ph ph-trash"></i>
+                </button>
+            </div>
         </div>
     `).join('');
 }
+
+window.viewMessageDetail = async function (id) {
+    const { data, error } = await supabaseClient.from('contacts').select('*').eq('id', id).single();
+    if (error) { alert(error.message); return; }
+
+    document.getElementById('modal-date').textContent = new Date(data.created_at).toLocaleString();
+    document.getElementById('modal-subject').textContent = data.subject || 'Sans objet';
+    document.getElementById('modal-name').textContent = data.name;
+    document.getElementById('modal-email').textContent = data.email;
+    document.getElementById('modal-body').textContent = data.message;
+
+    const deleteBtn = document.getElementById('modal-delete-btn');
+    deleteBtn.onclick = () => deleteMessage(data.id, true);
+
+    document.getElementById('message-modal').style.display = 'flex';
+};
+
+window.deleteMessage = async function (id, fromModal = false) {
+    if (!confirm('Voulez-vous vraiment supprimer ce message ?')) return;
+
+    const { error } = await supabaseClient.from('contacts').delete().eq('id', id);
+    if (error) alert(error.message);
+    else {
+        if (fromModal) closeModal();
+        fetchMessages();
+    }
+};
+
+function closeModal() {
+    document.getElementById('message-modal').style.display = 'none';
+}
+
+document.getElementById('close-modal')?.addEventListener('click', closeModal);
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('message-modal');
+    if (e.target === modal) closeModal();
+});
 
 // --- 2. Hero & Stats ---
 async function loadHeroData() {
