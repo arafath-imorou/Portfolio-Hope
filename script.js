@@ -6,7 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. Supabase Initialization ---
     const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-    const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZycGdkYWNlYmNocHhmamVvd3ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MTEyNjYsImV4cCI6MjA4ODQ4NzI2Nn0.arYHp4qsL2CtFs0x3rtgP3wT8VgcJwNJR74H31Qt_50';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
     // --- 0.1 Scroll Reveal Animation (Intersection Observer) ---
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    const contactForm = document.querySelector('.contact-form');
+    const contactForm = document.getElementById('contact-form');
 
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
@@ -304,18 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
 
-            // Get form data
-            const name = contactForm.querySelector('input[placeholder="Nom"]').value;
-            const email = contactForm.querySelector('input[placeholder="Email"]').value;
-            const subject = contactForm.querySelector('input[placeholder="Sujet"]').value;
-            const message = contactForm.querySelector('textarea[placeholder="Message"]').value;
+            // Get form data using new IDs
+            const name = document.getElementById('msg-name').value;
+            const email = document.getElementById('msg-email').value;
+            const subject = document.getElementById('msg-subject').value;
+            const message = document.getElementById('msg-body').value;
 
             // UI State: Loading
             submitBtn.disabled = true;
             submitBtn.textContent = 'ENVOI EN COURS...';
 
             try {
-                const { data, error } = await supabaseClient
+                const { error } = await supabaseClient
                     .from('contacts')
                     .insert([
                         { name, email, subject, message }

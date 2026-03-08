@@ -753,16 +753,17 @@
                     </div>
 
                     <!-- Minimalist Form -->
-                    <form class="contact-form">
+                    <form class="contact-form" id="contact-form">
                         <div class="form-row">
-                            <input type="text" placeholder="Nom" class="form-input" required>
-                            <input type="email" placeholder="Email" class="form-input" required>
+                            <input type="text" id="msg-name" placeholder="Nom" class="form-input" required>
+                            <input type="email" id="msg-email" placeholder="Email" class="form-input" required>
                         </div>
                         <div class="form-row">
-                            <input type="text" placeholder="Sujet" class="form-input" required>
+                            <input type="text" id="msg-subject" placeholder="Sujet" class="form-input" required>
                         </div>
                         <div class="form-row">
-                            <textarea placeholder="Message" class="form-textarea" rows="5" required></textarea>
+                            <textarea id="msg-body" placeholder="Message" class="form-textarea" rows="5"
+                                required></textarea>
                         </div>
                         <div class="submit-wrapper">
                             <button type="submit" class="btn-outline">ENVOYER</button>
