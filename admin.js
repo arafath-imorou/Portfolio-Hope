@@ -123,6 +123,8 @@ async function loadEditorData() {
                 <input type="text" class="admin-input" placeholder="Entreprise" value="${exp.company}" data-field="company">
                 <input type="text" class="admin-input" placeholder="Période" value="${exp.period}" data-field="period">
                 <textarea class="admin-input" placeholder="Description" data-field="description">${exp.description}</textarea>
+                <div class="edit-cue" style="font-size: 0.75rem; margin-top: 0.5rem;"><i class="ph ph-list-bullets"></i> Points clés (un par ligne)</div>
+                <textarea class="admin-input" placeholder="Points clés" data-field="bullets" rows="4">${Array.isArray(exp.bullets) ? exp.bullets.join('\n') : ''}</textarea>
                 <button class="save-btn" style="margin-top: 0.5rem;" onclick="saveItem(this)">Enregistrer</button>
             </div>
         `).join('');
@@ -185,7 +187,7 @@ async function saveGeneralContent(e) {
 window.addItem = async function (table) {
     let newItem = { sort_order: 99 };
     if (table === 'expertise') newItem = { ...newItem, title: 'Nouveau', icon: 'star', description: '...' };
-    if (table === 'experiences') newItem = { ...newItem, role: 'Nouveau Rôle', company: '...', period: '...', description: '...' };
+    if (table === 'experiences') newItem = { ...newItem, role: 'Nouveau Rôle', company: '...', period: '...', description: '...', bullets: [] };
     if (table === 'formations') newItem = { ...newItem, type: 'academic', title: 'Nouvelle formation', detail: '...', year: '...' };
     if (table === 'skills') newItem = { ...newItem, category: 'software', name: 'Nouveau' };
 
@@ -200,7 +202,13 @@ window.saveItem = async function (btn) {
     const table = card.dataset.table;
     const inputs = card.querySelectorAll('.admin-input[data-field]');
     const update = {};
-    inputs.forEach(input => update[input.dataset.field] = input.value);
+    inputs.forEach(input => {
+        let value = input.value;
+        if (input.dataset.field === 'bullets') {
+            value = value.split('\n').map(b => b.trim()).filter(b => b !== '');
+        }
+        update[input.dataset.field] = value;
+    });
 
     const { error } = await supabaseClient.from(table).update(update).eq('id', id);
     if (error) alert('Erreur: ' + error.message);

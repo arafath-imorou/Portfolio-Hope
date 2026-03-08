@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="expertise-card fade-in">
                         <div class="expertise-icon"><i class="ph ph-${exp.icon}"></i></div>
                         <h3 class="expertise-title">${exp.title}</h3>
-                        <p class="expertise-text">${exp.description}</p>
+                        <p class="expertise-desc">${exp.description}</p>
                     </div>
                 `).join('');
             }
@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <span class="timeline-date">${exp.period}</span>
-                            <h3 class="timeline-title">${exp.role}</h3>
-                            <h4 class="timeline-org">${exp.company}</h4>
+                            <h3 class="timeline-role">${exp.role}</h3>
+                            <h4 class="timeline-company">${exp.company}</h4>
                             <p class="timeline-desc">${exp.description}</p>
                             <ul class="timeline-list">
                                 ${Array.isArray(exp.bullets) ? exp.bullets.map(b => `<li>${b}</li>`).join('') : ''}
