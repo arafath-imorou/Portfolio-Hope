@@ -5,8 +5,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. Supabase Initialization ---
-    const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-    const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
+    const supabaseUrl = 'https://eqqdjqdbbwmshllqesdt.supabase.co';
+    const supabaseKey = 'sb_publishable_WWWI-B3hA2eo3lBLGlizyg_4w0Me1Fw';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
     // --- 0.1 Scroll Reveal Animation (Intersection Observer) ---

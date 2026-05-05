@@ -114,29 +114,57 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-        const supabaseKey = 'sb_publishable_IHm_8q7bkmUV23QHSA4ztw_Zel0K6wS';
+        const supabaseUrl = 'https://eqqdjqdbbwmshllqesdt.supabase.co';
+        const supabaseKey = 'sb_publishable_WWWI-B3hA2eo3lBLGlizyg_4w0Me1Fw';
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         const loginForm = document.getElementById('login-form');
         const errorMsg = document.getElementById('error-msg');
+        const submitBtn = loginForm.querySelector('.login-btn');
+
+        // Note: Sign-up logic added temporarily to help you create your account on the new project.
+        // Once created, you can log in normally.
+        let isSignUp = false;
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                email,
-                password
-            });
+            submitBtn.textContent = 'Chargement...';
+            errorMsg.style.display = 'none';
+
+            let result;
+            if (isSignUp) {
+                result = await supabaseClient.auth.signUp({ email, password });
+            } else {
+                result = await supabaseClient.auth.signInWithPassword({ email, password });
+            }
+
+            const { data, error } = result;
 
             if (error) {
                 errorMsg.textContent = error.message;
                 errorMsg.style.display = 'block';
+                submitBtn.textContent = isSignUp ? 'Créer le compte' : 'Se Connecter';
             } else {
-                window.location.href = 'admin.html';
+                if (isSignUp) {
+                    errorMsg.textContent = "Compte créé ! Vérifiez vos emails (si activé) ou essayez de vous connecter.";
+                    errorMsg.style.color = "#059669";
+                    errorMsg.style.display = 'block';
+                    isSignUp = false;
+                    submitBtn.textContent = 'Se Connecter';
+                } else {
+                    window.location.href = 'admin.html';
+                }
             }
+        });
+
+        // Add a hidden trigger to toggle sign-up mode (double click title)
+        document.querySelector('.login-title').addEventListener('dblclick', () => {
+            isSignUp = !isSignUp;
+            submitBtn.textContent = isSignUp ? 'Créer le compte' : 'Se Connecter';
+            alert(isSignUp ? "Mode Inscription activé" : "Mode Connexion activé");
         });
 
         // Redirect if already logged in
