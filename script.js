@@ -1,5 +1,5 @@
 /**
- * Portfolio Interaction Script
+ * Portfolio Interaction Script - v1.0.1
  * Dr. Hope AKOHOUVI AMOU
  */
 
