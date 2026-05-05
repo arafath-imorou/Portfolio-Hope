@@ -11,8 +11,10 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/outfit/v11/QGYsz_OByt2GAdQgeUELDSZo_S-6ssKPrQ.woff2"
-        type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1C4E.ttf"
+        type="font/ttf" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZg.ttf"
+        type="font/ttf" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
@@ -20,7 +22,43 @@
     <!-- Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
 
-    <!-- Tailwind CSS (via CDN) just for some utility classes if needed, but styling mostly in CSS -->
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --secondary: #0f172a;
+            --secondary-light: #334155;
+            --accent: #f59e0b;
+            --bg-main: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-light: #f8fafc;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --container-max: 1200px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --trans-normal: 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 3rem; }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1.5rem 0; transition: all var(--trans-normal); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--secondary); }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 4.5rem; }
+        .hero-container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; }
+        .hero-title { font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
+        .text-gradient { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .fade-in { opacity: 0; transform: translateY(30px); }
+        .bg-shape { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.6; }
+    </style>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>

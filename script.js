@@ -5,9 +5,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. Supabase Initialization ---
-    const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZycGdkYWNlYmNocHhmamVvd3ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MTEyNjYsImV4cCI6MjA4ODQ4NzI2Nn0.arYHp4qsL2CtFs0x3rtgP3wT8VgcJwNJR74H31Qt_50';
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseUrl = 'https://eqqdjqdbbwmshllqesdt.supabase.co';
+    const supabaseKey = 'sb_publishable_WWWI-B3hA2eo3lBLGlizyg_4w0Me1Fw';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey, {
+        db: { schema: 'portfolio_hope' }
+    });
 
     // --- 0.1 Scroll Reveal Animation (Intersection Observer) ---
     const revealOptions = {
@@ -251,23 +253,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const prefix = el.getAttribute('data-prefix') || '';
         const suffix = el.getAttribute('data-suffix') || '';
         const duration = 1800;
-        const frameDuration = 1000 / 60;
-        const totalFrames = Math.round(duration / frameDuration);
-        let frame = 0;
-
         const easeOut = (t) => 1 - Math.pow(1 - t, 3);
-
-        const counter = setInterval(() => {
-            frame++;
-            const progress = easeOut(frame / totalFrames);
-            const current = Math.round(progress * target);
+        let start = null;
+        const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const easedProgress = easeOut(progress);
+            const current = Math.round(easedProgress * target);
+            
             el.textContent = prefix + current + suffix;
 
-            if (frame === totalFrames) {
-                clearInterval(counter);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
                 el.textContent = prefix + target + suffix;
             }
-        }, frameDuration);
+        };
+
+        window.requestAnimationFrame(step);
     }
 
     const countUpObserver = new IntersectionObserver((entries, observer) => {

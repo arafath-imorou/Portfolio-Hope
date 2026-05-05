@@ -1,6 +1,8 @@
-const supabaseUrl = 'https://vrpgdacebchpxfjeowzm.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZycGdkYWNlYmNocHhmamVvd3ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MTEyNjYsImV4cCI6MjA4ODQ4NzI2Nn0.arYHp4qsL2CtFs0x3rtgP3wT8VgcJwNJR74H31Qt_50';
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://eqqdjqdbbwmshllqesdt.supabase.co';
+const supabaseKey = 'sb_publishable_WWWI-B3hA2eo3lBLGlizyg_4w0Me1Fw';
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey, {
+    db: { schema: 'portfolio_hope' }
+});
 
 // --- Dom Elements ---
 const navItems = document.querySelectorAll('.nav-item');
