@@ -109,6 +109,9 @@
                 <button type="submit" class="login-btn">Se Connecter</button>
             </form>
             <p id="error-msg" style="color: #ff4757; margin-top: 1rem; font-size: 0.9rem; display: none;"></p>
+            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #64748b;">
+                <a href="#" id="toggle-signup" style="color: var(--primary); text-decoration: none; font-weight: 600;">Créer un compte administrateur</a>
+            </p>
         </div>
     </div>
 
@@ -121,10 +124,24 @@
         const loginForm = document.getElementById('login-form');
         const errorMsg = document.getElementById('error-msg');
         const submitBtn = loginForm.querySelector('.login-btn');
+        const toggleBtn = document.getElementById('toggle-signup');
+        const title = document.querySelector('.login-title');
 
-        // Note: Sign-up logic added temporarily to help you create your account on the new project.
-        // Once created, you can log in normally.
         let isSignUp = false;
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isSignUp = !isSignUp;
+            if (isSignUp) {
+                title.textContent = "Créer un Compte";
+                submitBtn.textContent = "S'inscrire";
+                toggleBtn.textContent = "Déjà un compte ? Se connecter";
+            } else {
+                title.textContent = "Accès Administration";
+                submitBtn.textContent = "Se Connecter";
+                toggleBtn.textContent = "Créer un compte administrateur";
+            }
+        });
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -132,39 +149,46 @@
             const password = document.getElementById('password').value;
 
             submitBtn.textContent = 'Chargement...';
+            submitBtn.disabled = true;
             errorMsg.style.display = 'none';
 
-            let result;
-            if (isSignUp) {
-                result = await supabaseClient.auth.signUp({ email, password });
-            } else {
-                result = await supabaseClient.auth.signInWithPassword({ email, password });
-            }
-
-            const { data, error } = result;
-
-            if (error) {
-                errorMsg.textContent = error.message;
-                errorMsg.style.display = 'block';
-                submitBtn.textContent = isSignUp ? 'Créer le compte' : 'Se Connecter';
-            } else {
+            try {
+                let result;
                 if (isSignUp) {
-                    errorMsg.textContent = "Compte créé ! Vérifiez vos emails (si activé) ou essayez de vous connecter.";
-                    errorMsg.style.color = "#059669";
-                    errorMsg.style.display = 'block';
-                    isSignUp = false;
-                    submitBtn.textContent = 'Se Connecter';
+                    result = await supabaseClient.auth.signUp({ email, password });
                 } else {
-                    window.location.href = 'admin.html';
+                    result = await supabaseClient.auth.signInWithPassword({ email, password });
+                }
+
+                const { data, error } = result;
+
+                if (error) {
+                    errorMsg.textContent = error.message;
+                    errorMsg.style.color = "#ff4757";
+                    errorMsg.style.display = 'block';
+                } else {
+                    if (isSignUp) {
+                        errorMsg.textContent = "Compte créé ! Vérifiez vos emails ou connectez-vous.";
+                        errorMsg.style.color = "#059669";
+                        errorMsg.style.display = 'block';
+                        // Reset to login mode
+                        isSignUp = false;
+                        title.textContent = "Accès Administration";
+                        submitBtn.textContent = "Se Connecter";
+                        toggleBtn.textContent = "Créer un compte administrateur";
+                    } else {
+                        window.location.href = 'admin.html';
+                    }
+                }
+            } catch (err) {
+                errorMsg.textContent = "Erreur de connexion au serveur.";
+                errorMsg.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                if (!isSignUp && submitBtn.textContent === 'Chargement...') {
+                    submitBtn.textContent = 'Se Connecter';
                 }
             }
-        });
-
-        // Add a hidden trigger to toggle sign-up mode (double click title)
-        document.querySelector('.login-title').addEventListener('dblclick', () => {
-            isSignUp = !isSignUp;
-            submitBtn.textContent = isSignUp ? 'Créer le compte' : 'Se Connecter';
-            alert(isSignUp ? "Mode Inscription activé" : "Mode Connexion activé");
         });
 
         // Redirect if already logged in
