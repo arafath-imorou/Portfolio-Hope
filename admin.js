@@ -1,5 +1,5 @@
-const supabaseUrl = 'https://eqqdjqdbbwmshllqesdt.supabase.co';
-const supabaseKey = 'sb_publishable_WWWI-B3hA2eo3lBLGlizyg_4w0Me1Fw';
+const supabaseUrl = 'https://ampktfwcpopkomrsckjm.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcGt0ZndjcG9wa29tcnNja2ptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MTI5NjgsImV4cCI6MjA5MjI4ODk2OH0.svDhF6SpoJ6v_mwK4Ep8q93CjA5R0sd59X3RcrgBjeo';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // --- Dom Elements ---
