@@ -324,9 +324,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (error) throw error;
 
-                // Success feedback
-                alert('Merci ! Votre message a été envoyé avec succès.');
-                contactForm.reset();
+                // Create the recap card with WhatsApp forwarding
+                const whatsappText = `Bonjour Dr. Hope, je viens de vous envoyer un message depuis votre Portfolio :\n\n👤 *Nom:* ${name}\n✉️ *Email:* ${email}\n📌 *Sujet:* ${subject}\n💬 *Message:* ${message}`;
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=22990161549&text=${encodeURIComponent(whatsappText)}`;
+
+                const originalFormHTML = contactForm.innerHTML;
+
+                contactForm.innerHTML = `
+                    <div class="recap-card fade-in">
+                        <div class="recap-success-header">
+                            <div class="recap-success-icon"><i class="ph-fill ph-check-circle"></i></div>
+                            <h3>Message Envoyé avec Succès !</h3>
+                            <p>Merci pour votre message. Voici votre récapitulatif :</p>
+                        </div>
+                        <div class="recap-details">
+                            <p><strong>Nom :</strong> ${name}</p>
+                            <p><strong>Email :</strong> ${email}</p>
+                            <p><strong>Sujet :</strong> ${subject}</p>
+                            <p><strong>Message :</strong></p>
+                            <div class="recap-message-box">${message}</div>
+                        </div>
+                        <div class="recap-actions">
+                            <a href="${whatsappUrl}" class="btn-whatsapp" target="_blank">
+                                <i class="ph-fill ph-whatsapp-logo"></i> Envoyer aussi par WhatsApp
+                            </a>
+                            <button id="btn-reset-form" type="button" class="btn-text-only">Envoyer un autre message</button>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('btn-reset-form').addEventListener('click', () => {
+                    contactForm.innerHTML = originalFormHTML;
+                });
             } catch (error) {
                 console.error('Supabase error:', error.message);
                 alert('Oups ! Une erreur est survenue lors de l\'envoi. Veuillez réessayer plus tard.');
