@@ -481,12 +481,13 @@ ul {
     height: 100%;
     object-fit: cover;
     display: block;
-    transform: scale(1.8); /* Zoom pour agrandir le sujet et masquer les bordures vides */
+    transform: scale(1.8) translateZ(0); /* Zoom permanent de base avec accélération 3D */
+    will-change: transform; /* Indique au navigateur de figer ce transform sur le GPU */
     transition: transform var(--trans-slow);
 }
 
 .hero-image-wrapper:hover .hero-image {
-    transform: scale(1.95); /* Zoom supplémentaire au survol */
+    transform: scale(1.95) translateZ(0); /* Zoom supplémentaire au survol */
 }
 
 .visual-card {
