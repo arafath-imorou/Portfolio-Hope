@@ -481,13 +481,13 @@ ul {
     height: 100%;
     object-fit: cover;
     display: block;
-    transform: scale(3.0) translateZ(0); /* Zoom puissant pour remplir le blob de base */
+    transform: scale(2.2) translateZ(0); /* Zoom équilibré pour un rendu parfait */
     will-change: transform; /* Indique au navigateur de figer ce transform sur le GPU */
     transition: transform var(--trans-slow);
 }
 
 .hero-image-wrapper:hover .hero-image {
-    transform: scale(3.2) translateZ(0); /* Zoom supplémentaire au survol */
+    transform: scale(2.4) translateZ(0); /* Zoom supplémentaire léger au survol */
 }
 
 .visual-card {
