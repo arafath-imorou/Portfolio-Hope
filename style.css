@@ -451,8 +451,8 @@ ul {
 
 .hero-image-wrapper {
     position: relative;
-    width: 240px;
-    height: 240px;
+    width: 120px;
+    height: 120px;
     max-width: 100%;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     overflow: hidden;
@@ -481,13 +481,13 @@ ul {
     height: 100%;
     object-fit: cover;
     display: block;
-    transform: scale(1.6) translateZ(0); /* Zoom équilibré de 1.6 */
+    transform: scale(1.1) translateZ(0); /* Zoom mini de 1.1 */
     will-change: transform; /* Indique au navigateur de figer ce transform sur le GPU */
     transition: transform var(--trans-slow);
 }
 
 .hero-image-wrapper:hover .hero-image {
-    transform: scale(1.8) translateZ(0); /* Zoom supplémentaire au survol */
+    transform: scale(1.2) translateZ(0); /* Zoom léger supplémentaire au survol */
 }
 
 .visual-card {
@@ -1469,8 +1469,8 @@ ul {
     }
 
     .hero-image-wrapper {
-        width: 180px;
-        height: 180px;
+        width: 90px;
+        height: 90px;
         margin: 0 auto;
     }
 
