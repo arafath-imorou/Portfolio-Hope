@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadCMSContent() {
         try {
+            // Auto-update database to 10-digit Benin phone numbers
+            await supabaseClient.from('site_content').upsert([
+                { id: 'contact_phone_1', content: '+229 01 90 16 15 49' },
+                { id: 'contact_phone_2', content: '+229 01 63 80 25 54' }
+            ]);
+
             // 1. Site Content (Hero, About, Contact)
             const { data: contentData } = await supabaseClient.from('site_content').select('*');
             contentData?.forEach(item => {

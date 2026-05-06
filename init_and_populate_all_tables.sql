@@ -146,8 +146,8 @@ INSERT INTO site_content (id, content) VALUES
 ('about_description', 'Actuellement <strong>Directeur Pays GHSC-PSM (Chemonics / Gouvernement américain)</strong> et <strong>Chef de Projet ePharmacie (Présidence du Bénin)</strong>, je pilote des initiatives stratégiques pour la sécurisation et la traçabilité des produits de santé au Bénin.'),
 ('contact_address', 'COTONOU, BÉNIN'),
 ('contact_email', 'ahopea01@gmail.com'),
-('contact_phone_1', '+229 90 16 15 49'),
-('contact_phone_2', '+229 63 80 25 54')
+('contact_phone_1', '+229 01 90 16 15 49'),
+('contact_phone_2', '+229 01 63 80 25 54')
 ON CONFLICT (id) DO UPDATE SET content = EXCLUDED.content;
 
 -- 3.2 Statistiques
