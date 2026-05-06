@@ -481,11 +481,12 @@ ul {
     height: 100%;
     object-fit: cover;
     display: block;
+    transform: scale(1.8); /* Zoom pour agrandir le sujet et masquer les bordures vides */
     transition: transform var(--trans-slow);
 }
 
 .hero-image-wrapper:hover .hero-image {
-    transform: scale(1.05);
+    transform: scale(1.95); /* Zoom supplémentaire au survol */
 }
 
 .visual-card {
@@ -1630,4 +1631,19 @@ ul {
     .banner-text {
         font-size: 1.75rem;
     }
+}
+
+/* ITA INNOVATE Credit */
+.ita-credit {
+    color: var(--primary-light) !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(16, 185, 129, 0.2);
+}
+
+.ita-credit:hover {
+    color: #34d399 !important; /* Vert brillant */
+    text-shadow: 0 0 12px rgba(52, 211, 153, 0.8), 0 0 20px rgba(52, 211, 153, 0.4);
+    letter-spacing: 1px;
 }

@@ -155,9 +155,14 @@ async function loadHeroData() {
 // --- 3. Career (Expertise & Exp) ---
 async function loadCareerData() {
     // Expertise
-    const { data: expertiseData } = await supabaseClient.from('expertise').select('*').order('sort_order');
+    const { data: expertiseData, error: extError } = await supabaseClient.from('expertise').select('*').order('sort_order');
     const expertiseList = document.getElementById('expertise-list');
-    if (expertiseData) {
+    if (extError) {
+        expertiseList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'expertise':</strong> ${extError.message}.
+            <br><p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">Veuillez vous assurer d'exécuter le script SQL <code>init_and_populate_all_tables.sql</code> dans l'éditeur SQL de votre console Supabase pour créer cette table et la peupler automatiquement.</p>
+        </div>`;
+    } else if (expertiseData) {
         expertiseList.innerHTML = expertiseData.map(exp => renderItemEditor(exp, 'expertise', [
             { field: 'title', label: 'Titre', type: 'text' },
             { field: 'icon', label: 'Icon (Sans ph-)', type: 'text' },
@@ -166,9 +171,14 @@ async function loadCareerData() {
     }
 
     // Experiences
-    const { data: expData } = await supabaseClient.from('experiences').select('*').order('sort_order');
+    const { data: expData, error: expError } = await supabaseClient.from('experiences').select('*').order('sort_order');
     const expList = document.getElementById('experiences-list');
-    if (expData) {
+    if (expError) {
+        expList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'experiences':</strong> ${expError.message}.
+            <br><p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">Veuillez vous assurer d'exécuter le script SQL <code>init_and_populate_all_tables.sql</code> dans l'éditeur SQL de votre console Supabase pour créer cette table et la peupler automatiquement.</p>
+        </div>`;
+    } else if (expData) {
         expList.innerHTML = expData.map(exp => renderItemEditor(exp, 'experiences', [
             { field: 'role', label: 'Rôle', type: 'text' },
             { field: 'company', label: 'Entreprise', type: 'text' },
@@ -181,9 +191,14 @@ async function loadCareerData() {
 
 // --- 4. Formations & Certs ---
 async function loadFormationsData() {
-    const { data: formData } = await supabaseClient.from('formations').select('*').order('sort_order');
+    const { data: formData, error: formError } = await supabaseClient.from('formations').select('*').order('sort_order');
     const fList = document.getElementById('formations-list');
-    if (formData) {
+    if (formError) {
+        fList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'formations':</strong> ${formError.message}.
+            <br><p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">Veuillez vous assurer d'exécuter le script SQL <code>init_and_populate_all_tables.sql</code> dans l'éditeur SQL de votre console Supabase pour créer cette table et la peupler automatiquement.</p>
+        </div>`;
+    } else if (formData) {
         fList.innerHTML = formData.map(f => renderItemEditor(f, 'formations', [
             { field: 'type', label: 'Type', type: 'select', options: [{ v: 'academic', l: 'Académique' }, { v: 'professional', l: 'Professionnel' }] },
             { field: 'title', label: 'Diplôme / Titre', type: 'text' },
@@ -192,9 +207,13 @@ async function loadFormationsData() {
         ])).join('');
     }
 
-    const { data: certData } = await supabaseClient.from('certifications').select('*').order('sort_order');
+    const { data: certData, error: certError } = await supabaseClient.from('certifications').select('*').order('sort_order');
     const cList = document.getElementById('certifications-list');
-    if (certData) {
+    if (certError) {
+        cList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'certifications':</strong> ${certError.message}.
+        </div>`;
+    } else if (certData) {
         cList.innerHTML = certData.map(c => renderItemEditor(c, 'certifications', [
             { field: 'year', label: 'Année', type: 'text' },
             { field: 'title', label: 'Nom du Certificat', type: 'text' },
@@ -205,9 +224,14 @@ async function loadFormationsData() {
 
 // --- 5. Skills ---
 async function loadSkillsData() {
-    const { data: skillData } = await supabaseClient.from('skills').select('*').order('sort_order');
+    const { data: skillData, error: skillError } = await supabaseClient.from('skills').select('*').order('sort_order');
     const sList = document.getElementById('skills-list');
-    if (skillData) {
+    if (skillError) {
+        sList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'skills':</strong> ${skillError.message}.
+            <br><p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">Veuillez vous assurer d'exécuter le script SQL <code>init_and_populate_all_tables.sql</code> dans l'éditeur SQL de votre console Supabase pour créer cette table et la peupler automatiquement.</p>
+        </div>`;
+    } else if (skillData) {
         sList.innerHTML = skillData.map(s => renderItemEditor(s, 'skills', [
             { field: 'category', label: 'Catégorie', type: 'select', options: [{ v: 'software', l: 'Logiciel/Outil' }, { v: 'language', l: 'Langue' }] },
             { field: 'name', label: 'Nom', type: 'text' }
@@ -217,9 +241,13 @@ async function loadSkillsData() {
 
 // --- 6. Interests ---
 async function loadInterestsData() {
-    const { data: intData } = await supabaseClient.from('interests').select('*').order('sort_order');
+    const { data: intData, error: intError } = await supabaseClient.from('interests').select('*').order('sort_order');
     const iList = document.getElementById('interests-list');
-    if (intData) {
+    if (intError) {
+        iList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'interests':</strong> ${intError.message}.
+        </div>`;
+    } else if (intData) {
         iList.innerHTML = intData.map(i => renderItemEditor(i, 'interests', [
             { field: 'label', label: 'Nom', type: 'text' },
             { field: 'icon', label: 'Icon (Phosphor)', type: 'text' }
@@ -229,9 +257,13 @@ async function loadInterestsData() {
 
 // --- 7. Social & Contact ---
 async function loadSocialData() {
-    const { data: socData } = await supabaseClient.from('social_links').select('*').order('sort_order');
+    const { data: socData, error: socError } = await supabaseClient.from('social_links').select('*').order('sort_order');
     const sList = document.getElementById('social-list');
-    if (socData) {
+    if (socError) {
+        sList.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; margin-bottom: 1rem;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement de la table 'social_links':</strong> ${socError.message}.
+        </div>`;
+    } else if (socData) {
         sList.innerHTML = socData.map(s => renderItemEditor(s, 'social_links', [
             { field: 'platform', label: 'Réseau', type: 'text' },
             { field: 'url', label: 'URL', type: 'text' },
@@ -240,9 +272,13 @@ async function loadSocialData() {
     }
 
     const contactIds = ['contact_address', 'contact_email', 'contact_phone_1', 'contact_phone_2'];
-    const { data: contactData } = await supabaseClient.from('site_content').select('*').in('id', contactIds);
+    const { data: contactData, error: contactError } = await supabaseClient.from('site_content').select('*').in('id', contactIds);
     const container = document.getElementById('contact-inputs');
-    if (contactData) {
+    if (contactError) {
+        container.innerHTML = `<div style="padding: 1.5rem; color: #ff4757; background: #fff5f6; border-radius: 12px; border: 1px solid #ffe3e5; grid-column: span 2;">
+            <i class="ph ph-warning-circle" style="font-size: 1.25rem; vertical-align: middle;"></i> <strong>Erreur de chargement des coordonnées:</strong> ${contactError.message}.
+        </div>`;
+    } else if (contactData) {
         container.innerHTML = contactData.map(item => `
             <div class="input-group">
                 <label>${item.id.replace('contact_', '').replace('_', ' ')}</label>
@@ -326,8 +362,33 @@ window.deleteItem = async function (id, table) {
     else loadSectionData(document.querySelector('.nav-item.active').dataset.tab);
 };
 
+// --- Mobile Sidebar Toggle ---
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.querySelector('.admin-sidebar');
+
+if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
+
+    // Close when clicking on a nav item
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+    });
+}
+
 // --- Logout ---
-document.getElementById('logout-btn').addEventListener('click', async (e) => {
+document.getElementById('logout-btn')?.addEventListener('click', async (e) => {
     e.preventDefault();
     await supabaseClient.auth.signOut();
     window.location.href = 'login.html';

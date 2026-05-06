@@ -499,6 +499,132 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #ccc;
         }
+
+        /* --- RESPONSIVE MOBILE --- */
+        .menu-toggle-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+            padding: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .menu-toggle-btn:hover {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 992px) {
+            .editor-grid-auto {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-wrapper {
+                position: relative;
+            }
+
+            .admin-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+                transform: translateX(0);
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(280px);
+            }
+
+            .admin-main {
+                width: 100%;
+            }
+
+            .main-header {
+                padding: 1rem 1.5rem;
+                gap: 1rem;
+            }
+
+            .menu-toggle-btn {
+                display: flex;
+            }
+
+            .main-header h2 {
+                font-size: 1.25rem;
+                flex: 1;
+            }
+
+            #last-sync {
+                display: none; /* Hide on small mobiles to save space */
+            }
+
+            .content-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .admin-card {
+                padding: 1.5rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+            }
+
+            .admin-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+                padding-left: 0.8rem;
+            }
+
+            .input-group {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+
+            .item-editor {
+                padding: 1rem;
+                border-radius: 12px;
+                gap: 1rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .item-editor .item-actions {
+                flex-direction: row;
+                justify-content: flex-end;
+                margin-top: 0.5rem;
+            }
+
+            .editor-grid-auto {
+                gap: 1rem;
+            }
+
+            .save-btn, .add-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .message-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .modal-container {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+
+            .modal-info-row {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
     </style>
 </head>
 
@@ -547,6 +673,9 @@
         <!-- Main Content Area -->
         <main class="admin-main">
             <header class="main-header">
+                <button id="menu-toggle" class="menu-toggle-btn">
+                    <i class="ph ph-list"></i>
+                </button>
                 <h2 id="section-title">Messages Reçus</h2>
                 <div class="header-actions">
                     <span id="last-sync">Dernière synchro: Jamais</span>
