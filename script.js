@@ -32,12 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadCMSContent() {
         try {
-            // Auto-update database to 10-digit Benin phone numbers
-            await supabaseClient.from('site_content').upsert([
-                { id: 'contact_phone_1', content: '+229 01 90 16 15 49' },
-                { id: 'contact_phone_2', content: '+229 01 63 80 25 54' }
-            ]);
-
             // 1. Site Content (Hero, About, Contact)
             const { data: contentData } = await supabaseClient.from('site_content').select('*');
             contentData?.forEach(item => {
@@ -331,8 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
 
                 // Create the recap card with WhatsApp forwarding
+                const contactPhone1 = document.getElementById('contact_phone_1')?.textContent || '+229 01 90 16 15 49';
+                const cleanPhone = contactPhone1.replace(/\s+/g, '').replace('+', '');
                 const whatsappText = `Bonjour Dr. Hope, je viens de vous envoyer un message depuis votre Portfolio :\n\n👤 *Nom:* ${name}\n✉️ *Email:* ${email}\n📌 *Sujet:* ${subject}\n💬 *Message:* ${message}`;
-                const whatsappUrl = `https://api.whatsapp.com/send?phone=2290190161549&text=${encodeURIComponent(whatsappText)}`;
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(whatsappText)}`;
 
                 const originalFormHTML = contactForm.innerHTML;
 

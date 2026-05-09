@@ -138,6 +138,21 @@ async function loadHeroData() {
         `).join('');
     }
 
+    // About
+    const aboutIds = ['about_lead', 'about_description'];
+    const { data: aboutData } = await supabaseClient.from('site_content').select('*').in('id', aboutIds);
+    const aboutContainer = document.getElementById('about-inputs');
+
+    if (aboutData && aboutContainer) {
+        aboutContainer.innerHTML = aboutData.map(item => `
+            <div class="input-group">
+                <label>${item.id.replace('about_', '').replace('_', ' ')}</label>
+                <textarea class="admin-input-hero" data-id="${item.id}" rows="4">${item.content}</textarea>
+                <button class="save-btn" style="margin-top:0.5rem; padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="saveDirectContent(this)">Enregistrer</button>
+            </div>
+        `).join('');
+    }
+
     // Stats
     const { data: statsData } = await supabaseClient.from('statistics').select('*').order('sort_order');
     const statsList = document.getElementById('stats-list');
